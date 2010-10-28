@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  action_type_id: 1
+  option_id: 1
+  base_rom_id: 1
+  parameters: MyText
+
+two:
+  action_type_id: 1
+  option_id: 1
+  base_rom_id: 1
+  parameters: MyText

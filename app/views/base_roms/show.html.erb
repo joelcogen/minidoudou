@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @base_rom.name %>
+</p>
+
+<p>
+  <b>Old:</b>
+  <%= @base_rom.old %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @base_rom.url %>
+</p>
+
+<p>
+  <b>Device:</b>
+  <%= @base_rom.device_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_base_rom_path(@base_rom) %> |
+<%= link_to 'Back', base_roms_path %>

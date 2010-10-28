@@ -1,0 +1,29 @@
+<h1>Listing base_roms</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Old</th>
+    <th>Url</th>
+    <th>Device</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @base_roms.each do |base_rom| %>
+  <tr>
+    <td><%= base_rom.name %></td>
+    <td><%= base_rom.old %></td>
+    <td><%= base_rom.url %></td>
+    <td><%= base_rom.device_id %></td>
+    <td><%= link_to 'Show', base_rom %></td>
+    <td><%= link_to 'Edit', edit_base_rom_path(base_rom) %></td>
+    <td><%= link_to 'Destroy', base_rom, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Base rom', new_base_rom_path %>

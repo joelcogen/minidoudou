@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  base_rom_id: 1
+  include_nil: false
+  name: MyString
+
+two:
+  base_rom_id: 1
+  include_nil: false
+  name: MyString
