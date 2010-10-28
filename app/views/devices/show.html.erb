@@ -1,15 +1,34 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @device.name %>
-</p>
+<div id="nav">
+  <%= link_to 'Back', devices_path %>
+</div>
 
-<p>
-  <b>Image url:</b>
-  <%= @device.image_url %>
-</p>
+<h1><%= @device.name %></h1>
 
+<ul>
+<% @device.base_roms.select{|r| !r.old && !r.dev}.each do |base_rom| %>
+  <li><%= link_to base_rom.name, base_rom %></li>
+<% end %>
+</ul>
 
-<%= link_to 'Edit', edit_device_path(@device) %> |
-<%= link_to 'Back', devices_path %>
+<h2>Old ROMs</h2>
+
+<ul>
+<% @device.base_roms.select{|r| r.old && !r.dev}.each do |base_rom| %>
+  <li><%= link_to base_rom.name, base_rom %></li>
+<% end %>
+</ul>
+
+<h2>In development</h2>
+
+<ul>
+<% @device.base_roms.select{|r| r.dev}.each do |base_rom| %>
+  <li><%= link_to base_rom.name, base_rom %></li>
+<% end %>
+</ul>
+
+<div id="admin">
+  <%= link_to 'Edit device', edit_device_path(@device) %> | <%= link_to 'New ROM', new_base_rom_path %>
+</div>
+

@@ -1,6 +1,8 @@
-<h1>Editing device</h1>
+<h1>Editing <%= @device.name %></h1>
+
+<div id="nav">
+  <%= link_to 'Back', @device %>
+</div>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @device %> |
-<%= link_to 'Back', devices_path %>

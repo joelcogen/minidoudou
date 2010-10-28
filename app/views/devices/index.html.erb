@@ -1,25 +1,12 @@
 <h1>Listing devices</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Image url</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<ul>
 <% @devices.each do |device| %>
-  <tr>
-    <td><%= device.name %></td>
-    <td><%= device.image_url %></td>
-    <td><%= link_to 'Show', device %></td>
-    <td><%= link_to 'Edit', edit_device_path(device) %></td>
-    <td><%= link_to 'Destroy', device, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <li><%= device.image_url %> <%= link_to device.name, device %></li>
 <% end %>
-</table>
+</ul>
 
-<br />
+<div id="admin">
+  <%= link_to 'New Device', new_device_path %>
+</div>
 
-<%= link_to 'New Device', new_device_path %>

@@ -1,9 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @base_rom.name %>
-</p>
+<div id="nav">
+  <%= link_to 'Back', @base_rom.device %>
+</div>
+
+<h1><%= @base_rom.name %> for <%= @base_rom.device.name %></h1>
 
 <p>
   <b>Old:</b>
@@ -20,6 +21,7 @@
   <%= @base_rom.device_id %>
 </p>
 
+<div id="admin">
+  <%= link_to 'Edit', edit_base_rom_path(@base_rom) %>
+</div>
 
-<%= link_to 'Edit', edit_base_rom_path(@base_rom) %> |
-<%= link_to 'Back', base_roms_path %>
