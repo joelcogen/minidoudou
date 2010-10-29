@@ -10,23 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101028131721) do
-
-  create_table "action_types", :force => true do |t|
-    t.string   "name"
-    t.string   "command"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "actions", :force => true do |t|
-    t.integer  "action_type_id"
-    t.integer  "option_id"
-    t.integer  "base_rom_id"
-    t.text     "parameters"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20101028125804) do
 
   create_table "base_roms", :force => true do |t|
     t.string   "name"
@@ -35,14 +19,7 @@ ActiveRecord::Schema.define(:version => 20101028131721) do
     t.string   "url"
     t.integer  "device_id"
     t.string   "file_path"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "choices", :force => true do |t|
-    t.integer  "base_rom_id"
-    t.boolean  "include_nil"
-    t.string   "name"
+    t.text     "to_remove"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -50,13 +27,6 @@ ActiveRecord::Schema.define(:version => 20101028131721) do
   create_table "devices", :force => true do |t|
     t.string   "name"
     t.string   "image_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "options", :force => true do |t|
-    t.integer  "choice_id"
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

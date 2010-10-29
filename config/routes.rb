@@ -1,15 +1,9 @@
 Minidoudou::Application.routes.draw do
-  resources :actions
+  #resources :base_roms
 
-  resources :action_types
-
-  resources :options
-
-  resources :choices
-
-  resources :base_roms
-
-  resources :devices
+  resources :devices do
+    resources :base_roms
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

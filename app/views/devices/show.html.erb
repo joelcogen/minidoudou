@@ -8,7 +8,7 @@
 
 <ul>
 <% @device.base_roms.select{|r| !r.old && !r.dev}.each do |base_rom| %>
-  <li><%= link_to base_rom.name, base_rom %></li>
+  <li><%= link_to base_rom.name, [@device, base_rom] %></li>
 <% end %>
 </ul>
 
@@ -29,6 +29,6 @@
 </ul>
 
 <div id="admin">
-  <%= link_to 'Edit device', edit_device_path(@device) %> | <%= link_to 'New ROM', new_base_rom_path %>
+  <%= link_to 'Edit device', edit_device_path(@device) %> | <%= link_to 'New ROM', new_device_base_rom_path(@device) %>
 </div>
 

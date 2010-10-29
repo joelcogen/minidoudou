@@ -1,4 +1,4 @@
-<%= form_for(@base_rom) do |f| %>
+<%= form_for([@device, @base_rom]) do |f| %>
   <% if @base_rom.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@base_rom.errors.count, "error") %> prohibited this base_rom from being saved:</h2>
@@ -16,18 +16,23 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :old %><br />
-    <%= f.check_box :old %>
-  </div>
-  <div class="field">
-    <%= f.label :url %><br />
+    <%= f.label 'Website' %><br />
     <%= f.text_field :url %>
   </div>
   <div class="field">
-    <%= f.label :device_id %><br />
-    <%= f.text_field :device_id %>
+    <%= f.label 'Original file' %><br />
+    <%= f.text_field :file_path %>
   </div>
+
+  <div class="field">
+    <%= f.check_box :dev %> <%= f.label 'In development' %>
+  </div>
+  <div class="field">
+    <%= f.check_box :old %> <%= f.label 'Deprecated' %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+

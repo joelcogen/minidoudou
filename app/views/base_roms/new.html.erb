@@ -1,5 +1,8 @@
-<h1>New base_rom</h1>
+<h1>New Base ROM for <%= @device.name %></h1>
+
+<div id="nav">
+  <%= link_to 'Back', @device %>
+</div>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', base_roms_path %>
