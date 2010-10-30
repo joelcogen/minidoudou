@@ -42,6 +42,15 @@ class BaseRomsController < ApplicationController
     @device = Device.find(params[:device_id])
     @base_rom = BaseRom.new(params[:base_rom])
 
+    # Save file
+    file_path = DataFile.store(params[:upload])
+    unless file_path
+      flash[:error] = 'Upload failed, please try again'
+      redirect_to :action => "new"
+      return
+    end
+    @base_rom.file_path = file_path
+
     respond_to do |format|
       if @device.base_roms << @base_rom
         format.html { redirect_to([@device, @base_rom], :notice => 'Base rom was successfully created.') }
@@ -56,6 +65,15 @@ class BaseRomsController < ApplicationController
   def update
     @base_rom = BaseRom.find(params[:id])
     @device = Device.find(params[:device_id])
+
+    # Save file
+    file_path = DataFile.store(params[:upload])
+    unless file_path
+      flash[:error] = 'Upload failed, please try again'
+      redirect_to :action => "edit"
+      return
+    end
+    @base_rom.file_path = file_path
 
     respond_to do |format|
       if @base_rom.update_attributes(params[:base_rom])
