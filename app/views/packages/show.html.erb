@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @package.name %>
+</p>
+
+<p>
+  <b>Version:</b>
+  <%= @package.version %>
+</p>
+
+<p>
+  <b>Old:</b>
+  <%= @package.old %>
+</p>
+
+<p>
+  <b>File path:</b>
+  <%= @package.file_path %>
+</p>
+
+<p>
+  <b>Apk:</b>
+  <%= @package.apk %>
+</p>
+
+
+<%= link_to 'Edit', edit_package_path(@package) %> |
+<%= link_to 'Back', packages_path %>

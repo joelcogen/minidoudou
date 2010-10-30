@@ -1,0 +1,40 @@
+<%= form_for(@package, :html => {:multipart => true}) do |f| %>
+  <% if @package.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@package.errors.count, "error") %> prohibited this package from being saved:</h2>
+
+      <ul>
+      <% @package.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :version %><br />
+    <%= f.text_field :version %>
+  </div>
+  <div class="field">
+    <%= f.check_box :old %> <%= f.label 'Deprecated' %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Package file' %><br />
+    <b><%= (@package.file_path.nil? or @package.file_path.empty? ) ? 'No file yet' : @package.file_path %></b><br />
+    <%= file_field 'upload', 'datafile' %>
+  </div>
+  <div class="field">
+    <%= f.check_box :apk %> <%= f.label 'Apk' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

@@ -6,7 +6,6 @@ class DevicesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @devices }
     end
   end
 
@@ -17,7 +16,6 @@ class DevicesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @device }
     end
   end
 
@@ -28,7 +26,6 @@ class DevicesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @device }
     end
   end
 
@@ -45,10 +42,8 @@ class DevicesController < ApplicationController
     respond_to do |format|
       if @device.save
         format.html { redirect_to(@device, :notice => 'Device was successfully created.') }
-        format.xml  { render :xml => @device, :status => :created, :location => @device }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @device.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -61,10 +56,8 @@ class DevicesController < ApplicationController
     respond_to do |format|
       if @device.update_attributes(params[:device])
         format.html { redirect_to(@device, :notice => 'Device was successfully updated.') }
-        format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @device.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -77,7 +70,7 @@ class DevicesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(devices_url) }
-      format.xml  { head :ok }
     end
   end
 end
+

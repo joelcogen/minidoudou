@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101028125804) do
+ActiveRecord::Schema.define(:version => 20101030161952) do
+
+  create_table "base_rom_packages", :force => true do |t|
+    t.integer  "base_rom_id"
+    t.integer  "package_id"
+    t.boolean  "mandatory"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "base_roms", :force => true do |t|
     t.string   "name"
@@ -27,6 +35,16 @@ ActiveRecord::Schema.define(:version => 20101028125804) do
   create_table "devices", :force => true do |t|
     t.string   "name"
     t.string   "image_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "packages", :force => true do |t|
+    t.string   "name"
+    t.string   "version"
+    t.boolean  "old"
+    t.string   "file_path"
+    t.boolean  "apk"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

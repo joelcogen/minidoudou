@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  version: MyString
+  old: false
+  file_path: MyString
+  apk: false
+
+two:
+  name: MyString
+  version: MyString
+  old: false
+  file_path: MyString
+  apk: false

@@ -1,0 +1,24 @@
+<h1>Packages</h1>
+
+<div id="nav">
+  <%= link_to 'Home', '/' %>
+</div>
+
+<ul>
+<% @current_packages.each do |package| %>
+  <li><%= link_to package.name + ' ' + package.version, @package %></li>
+<% end %>
+</ul>
+
+<h2>Deprecated</h2>
+
+<ul>
+<% @old_packages.each do |package| %>
+  <li><%= link_to package.name + ' ' + package.version, @package %></li>
+<% end %>
+</ul>
+
+<div id="admin">
+  <%= link_to 'New Package', new_package_path %>
+</div>
+
