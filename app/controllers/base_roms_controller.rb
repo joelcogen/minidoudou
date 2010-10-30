@@ -55,10 +55,11 @@ class BaseRomsController < ApplicationController
   # PUT /base_roms/1.xml
   def update
     @base_rom = BaseRom.find(params[:id])
+    @device = Device.find(params[:device_id])
 
     respond_to do |format|
       if @base_rom.update_attributes(params[:base_rom])
-        format.html { redirect_to(@base_rom, :notice => 'Base rom was successfully updated.') }
+        format.html { redirect_to([@device, @base_rom], :notice => 'Base rom was successfully updated.') }
       else
         format.html { render :action => "edit" }
       end
