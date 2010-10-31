@@ -1,0 +1,26 @@
+<%= form_for [@base_rom.device, @base_rom, @base_rom_package] do |f| %>
+  <% if @base_rom_package.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@base_rom_package.errors.count, "error") %> prohibited this base_rom_package from being saved:</h2>
+
+      <ul>
+      <% @base_rom_package.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :package_id %><br />
+    <%= f.collection_select :package_id, @packages, :id, :fullname %>
+  </div>
+  <div class="field">
+    <%= f.check_box :mandatory %>
+    <%= f.label :mandatory %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Add' %>
+  </div>
+<% end %>
+

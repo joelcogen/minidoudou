@@ -1,10 +1,14 @@
 Minidoudou::Application.routes.draw do
+
+
   resources :packages
 
   #resources :base_roms
 
   resources :devices do
-    resources :base_roms
+    resources :base_roms do
+      resources :base_rom_packages
+    end
   end
 
   # The priority is based upon order of creation:

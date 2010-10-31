@@ -7,13 +7,15 @@
 <h1><%= @base_rom.device.name %> &gt; <%= @base_rom.name %></h1>
 
 <ul>
-<% @base_rom.packages.each do |package| %>
-  <li><%= package.name %></li>
+<% @base_rom.base_rom_packages.each do |base_rom_package|
+     package = base_rom_package.package %>
+  <li><%= package.fullname %> <%= base_rom_package.mandatory ? '(mandatory)' : '' %> | <%= link_to 'Remove', [@base_rom.device, @base_rom, base_rom_package], :method => 'DELETE', :confirm => 'Sure?' %></li>
 <% end %>
 </ul>
 
 <div id="admin">
   <%= link_to 'Edit info', edit_device_base_rom_path(@base_rom.device, @base_rom) %> |
+  <%= link_to 'Add package', new_device_base_rom_base_rom_package_path(@base_rom.device, @base_rom) %> |
   <%= link_to 'Delete', [@base_rom.device, @base_rom], :confirm => 'OMG are you absolutely sure? I mean, you could mark it deprecated, but deleting? Really? REALLY really?', :method => :delete %>
 </div>
 
