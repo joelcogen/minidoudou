@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<div id="nav">
+  <%= link_to 'Back', packages_path %>
+</div>
+
 <p>
   <b>Name:</b>
   <%= @package.name %>
@@ -11,12 +15,12 @@
 </p>
 
 <p>
-  <b>Old:</b>
+  <b>Deprecated:</b>
   <%= @package.old %>
 </p>
 
 <p>
-  <b>File path:</b>
+  <b>File:</b>
   <%= @package.file_path %>
 </p>
 
@@ -25,6 +29,8 @@
   <%= @package.apk %>
 </p>
 
+<div id="admin">
+  <%= link_to 'Edit', edit_package_path(@package) %> |
+  <%= link_to 'Delete', @package, :method => 'DELETE', :confirm => 'Really? Marking it as deprecated seems like a better idea...' %>
+</div>
 
-<%= link_to 'Edit', edit_package_path(@package) %> |
-<%= link_to 'Back', packages_path %>

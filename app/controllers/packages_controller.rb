@@ -44,8 +44,8 @@ class PackagesController < ApplicationController
     # Save file
     file_path = DataFile.store(params[:upload])
     unless file_path
-      flash[:error] = 'Upload failed, please try again'
-      redirect_to :action => "new"
+      @package.errors.add :file, 'upload failed, please try again'
+      render :action => "new"
       return
     end
     @package.file_path = file_path
@@ -65,13 +65,15 @@ class PackagesController < ApplicationController
     @package = Package.find(params[:id])
 
     # Save file
-    file_path = DataFile.store(params[:upload])
-    unless file_path
-      flash[:error] = 'Upload failed, please try again'
-      redirect_to :action => "new"
-      return
+    if params[:upload]
+      file_path = DataFile.store(params[:upload])
+      unless file_path
+        @package.errors.add :file, 'upload failed, please try again'
+        render :action => "new"
+        return
+      end
+      @package.file_path = file_path
     end
-    @package.file_path = file_path
 
     respond_to do |format|
       if @package.update_attributes(params[:package])

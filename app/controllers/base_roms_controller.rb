@@ -45,8 +45,8 @@ class BaseRomsController < ApplicationController
     # Save file
     file_path = DataFile.store(params[:upload])
     unless file_path
-      flash[:error] = 'Upload failed, please try again'
-      redirect_to :action => "new"
+      @base_rom.errors.add :file, 'upload failed, please try again'
+      render :action => "new"
       return
     end
     @base_rom.file_path = file_path
@@ -67,13 +67,15 @@ class BaseRomsController < ApplicationController
     @device = Device.find(params[:device_id])
 
     # Save file
-    file_path = DataFile.store(params[:upload])
-    unless file_path
-      flash[:error] = 'Upload failed, please try again'
-      redirect_to :action => "edit"
-      return
+    if params[:upload]
+      file_path = DataFile.store(params[:upload])
+      unless file_path
+        @base_rom.errors.add :file, 'upload failed, please try again'
+        render :action => "new"
+        return
+      end
+      @base_rom.file_path = file_path
     end
-    @base_rom.file_path = file_path
 
     respond_to do |format|
       if @base_rom.update_attributes(params[:base_rom])

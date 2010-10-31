@@ -6,7 +6,7 @@
 
 <ul>
 <% @current_packages.each do |package| %>
-  <li><%= link_to package.name + ' ' + package.version, @package %></li>
+  <li><%= link_to package.name + ' ' + package.version, package %></li>
 <% end %>
 </ul>
 
@@ -14,7 +14,7 @@
 
 <ul>
 <% @old_packages.each do |package| %>
-  <li><%= link_to package.name + ' ' + package.version, @package %></li>
+  <li><%= link_to package.name + ' ' + package.version, package %></li>
 <% end %>
 </ul>
 

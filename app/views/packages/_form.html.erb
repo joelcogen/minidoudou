@@ -25,12 +25,12 @@
   </div>
 
   <div class="field">
-    <%= f.label 'Package file' %><br />
+    <%= f.label 'File:' %>
     <b><%= (@package.file_path.nil? or @package.file_path.empty? ) ? 'No file yet' : @package.file_path %></b><br />
     <%= file_field 'upload', 'datafile' %>
   </div>
   <div class="field">
-    <%= f.check_box :apk %> <%= f.label 'Apk' %>
+    <%= f.check_box :apk %> <%= f.label 'Apk (copied in /system/app/)' %>
   </div>
 
   <div class="actions">
