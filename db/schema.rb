@@ -10,12 +10,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101030161952) do
+ActiveRecord::Schema.define(:version => 20101031135442) do
 
   create_table "base_rom_packages", :force => true do |t|
     t.integer  "base_rom_id"
     t.integer  "package_id"
     t.boolean  "mandatory"
+    t.boolean  "dev"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

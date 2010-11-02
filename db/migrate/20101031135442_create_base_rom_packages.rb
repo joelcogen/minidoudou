@@ -4,6 +4,7 @@ class CreateBaseRomPackages < ActiveRecord::Migration
       t.integer :base_rom_id
       t.integer :package_id
       t.boolean :mandatory
+      t.boolean :dev
 
       t.timestamps
     end
@@ -13,3 +14,4 @@ class CreateBaseRomPackages < ActiveRecord::Migration
     drop_table :base_rom_packages
   end
 end
+
