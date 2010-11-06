@@ -6,7 +6,7 @@
   <%= link_to 'Back', @base_rom.device %>
 </div>
 
-<p><%= @base_rom.info %></p>
+<p><%= @base_rom.info.split("\n").join("<br/>") %></p>
 
 <table>
   <tr>
