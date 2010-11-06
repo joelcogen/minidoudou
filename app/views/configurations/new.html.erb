@@ -1,7 +1,7 @@
 <h1><%= @base_rom.device.name %> &gt; <%= @base_rom.name %> &gt; New configuration</h1>
 
 <div id="nav">
-  <%= link_to 'Back', @base_rom.device %>
+  <%= link_to 'Back', device_base_rom_configurations_path(@base_rom.device, @base_rom) %>
 </div>
 
 <%= render 'form' %>
