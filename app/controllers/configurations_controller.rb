@@ -56,7 +56,7 @@ class ConfigurationsController < ApplicationController
 
     respond_to do |format|
       if @configuration.save
-        format.html { redirect_to([@base_rom.device, @base_rom, @configuration], :notice => 'Configuration was successfully created.') }
+        format.html { redirect_to(device_base_rom_configurations_path(@base_rom.device, @base_rom), :notice => 'Configuration was successfully created.') }
       else
         format.html { render :action => "new" }
       end

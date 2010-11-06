@@ -4,5 +4,6 @@ class Configuration < ActiveRecord::Base
   has_many :packages, :through => :configuration_packages
 
   validates_presence_of :name
+  validates_uniqueness_of :name
 end
 
