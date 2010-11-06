@@ -1,5 +1,7 @@
 <h1><%= @base_rom.device.name %> &gt; <%= @base_rom.name %> &gt; Configurations</h1>
 
+<p id="notice"><%= notice %></p>
+
 <div id="nav">
   <%= link_to 'Back', @base_rom.device %>
 </div>
@@ -17,7 +19,7 @@
     <td><%= configuration.name %></td>
     <td><%= configuration.file_path.nil? ? 'Pending...' : 'Ready' %></td>
     <td><%= configuration.packages.collect {|p| p.fullname}.join(', ') %></td>
-    <td><%= configuration.file_path.nil? ? '' : link_to('Download', configuration.file_path) %></td>
+    <td><%= configuration.file_path.nil? ? '' : link_to('Download', '/'+configuration.file_path) %></td>
   </tr>
 <% end %>
 </table>
