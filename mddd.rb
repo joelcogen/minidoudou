@@ -33,6 +33,9 @@ Dir.new("app/models").each do |model|
   require "#{model_path}" if File.file?(model_path)
 end
 
+successes = 0
+failures = 0
+
 # Loop on all pending configurations
 Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   begin
@@ -49,10 +52,27 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
     system "rm files/tmp/#{file.strip}" or raise "Can't remove '#{file.strip}'"
   end
 
+  us_path = "files/tmp/META-INF/com/google/android/updater-script"
+  us = "ui_print(\" \");\n"
+  us << "ui_print(\"This ROM was created using Minidoudou [minidoudou.joelcogen.com]\");\n"
+  us << "ui_print(\"Device: #{device.name}\");\n"
+  us << "ui_print(\"Base ROM: #{base_rom.name}\");\n"
+  us << "ui_print(\"Configuration: #{config.name}\");\n"
+  us << "ui_print(\" \");\n"
+  us << File.read(us_path) or raise "Can't read updater_script from base ROM"
+  system "rm #{us_path}" or raise "Can't remove updater_script from base ROM"
+
   config.packages.select {|p| !p.apk}.each do |package|
     log "Extracting package '#{package.fullname}' from '#{package.file_path}'"
     system "unzip -qo #{package.file_path} -d files/tmp/" or raise "Can't unzip '#{package.file_path}'"
+
+    if File.exist? us_path
+      us << "\n" + File.read(us_path) or raise "Can't read updater_script from package"
+      system "rm #{us_path}" or raise "Can't remove updater_script from package"
+    end
   end
+
+  File.open(us_path, "w") { |f| f.puts us }
 
   config.packages.select {|p| p.apk}.each do |package|
     log "Adding APK '#{package.fullname}' from '#{package.file_path}'"
@@ -71,17 +91,20 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   config.file_path = "download/#{zipname}"
   config.save or raise "Can't save configuration #{config.id} to DB"
 
+  successes += 1
+
   rescue Exception => e
     logerror e
     logerror "Failed to build '#{config.name}' from '#{base_rom.name}' for '#{device.name}'"
+    failures += 1
   end
 end
 
-log "=== MDDd haz success ==="
+log "=== MDDd haz finish (#{successes} great successes, #{failures} fail) ==="
 
 rescue Exception => e
   logerror e
-  logerror "=== MDDd haz failed ==="
+  logerror "=== MDDd haz failed BIG TIME ==="
 ensure
   system "rm -rf files/tmp/*"
 end
