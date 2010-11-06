@@ -1,10 +1,10 @@
+<h1><%= @base_rom.device.name %> &gt; <%= @base_rom.name %></h1>
+
 <p id="notice"><%= notice %></p>
 
 <div id="nav">
   <%= link_to 'Back', device_base_rom_configurations_path(@base_rom.device, @base_rom) %>
 </div>
-
-<h1><%= @base_rom.device.name %> &gt; <%= @base_rom.name %></h1>
 
 <ul>
 <% @base_rom.base_rom_packages.select {|p| !p.dev}.each do |base_rom_package|

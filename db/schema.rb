@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20101106133111) do
     t.integer  "device_id"
     t.string   "file_path"
     t.text     "to_remove"
+    t.text     "info"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
