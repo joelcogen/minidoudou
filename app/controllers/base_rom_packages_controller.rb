@@ -6,7 +6,7 @@ class BaseRomPackagesController < ApplicationController
   def new
     @base_rom = BaseRom.find(params[:base_rom_id])
     @base_rom_package = @base_rom.base_rom_packages.new
-    @packages = Package.all
+    @packages = Package.all.select {|p| !@base_rom.packages.include? p}
     @current_packages = @packages.select {|p| !p.old}
     @old_packages = @packages.select {|p| p.old}
     @packages = @current_packages + [Package.new(:name=>'--- Deprecated packages ---')] + @old_packages

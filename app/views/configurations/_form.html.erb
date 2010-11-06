@@ -15,7 +15,7 @@
   <% package = brp.package %>
     <div class="field">
       <%= check_box 'packages', package.id, brp.mandatory ? {:disabled=>'disabled', :checked=>'checked'} : {} %>
-      <%= f.label package.name %>
+      <%= package.name %>
     </div>
   <% end %>
 
