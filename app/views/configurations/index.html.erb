@@ -1,0 +1,31 @@
+<h1><%= @base_rom.device.name %> &gt; <%= @base_rom.name %> &gt; Configurations</h1>
+
+<div id="nav">
+  <%= link_to 'Back', @base_rom.device %>
+</div>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Status</th>
+    <th>Packages</th>
+    <th></th>
+  </tr>
+
+<% @configurations.sort {|c1,c2| c1.file_path.nil? ? 0 : 1}.each do |configuration| %>
+  <tr>
+    <td><%= configuration.name %></td>
+    <td><%= configuration.file_path.nil? ? 'Pending...' : 'Ready' %></td>
+    <td><%= configuration.packages.collect {|p| p.fullname}.join(', ') %></td>
+    <td><%= configuration.file_path.nil? ? '' : link_to('Download', configuration.file_path) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br/>
+<%= link_to 'Make my own!', new_device_base_rom_configuration_path(@base_rom.device, @base_rom) %>
+
+<div id="nav">
+  <%= link_to 'Edit this ROM', [@base_rom.device, @base_rom] %>
+</div>
+

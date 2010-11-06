@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <div id="nav">
-  <%= link_to 'Back', @base_rom.device %>
+  <%= link_to 'Back', device_base_rom_configurations_path(@base_rom.device, @base_rom) %>
 </div>
 
 <h1><%= @base_rom.device.name %> &gt; <%= @base_rom.name %></h1>
@@ -27,25 +27,4 @@
   <%= link_to 'Add package', new_device_base_rom_base_rom_package_path(@base_rom.device, @base_rom) %> |
   <%= link_to 'Delete', [@base_rom.device, @base_rom], :confirm => 'OMG are you absolutely sure? I mean, you could mark it deprecated, but deleting? Really? REALLY really?', :method => :delete %>
 </div>
-
-
-<!--
-< form_for @selection do |f| %>
-  < @base_rom.choices.each do |choice| %>
-    <div class="field">
-      <= f.label choice.name %><br />
-      <= select("options", choice.options.collect{|o| [o.name, o.id]}, {}) %>
-    </div>
-  < end %>
-
-  <div class="field">
-    <= f.label :name %><br />
-    <= f.text_field :name %>
-  </div>
-
-  <div class="actions">
-    <= f.submit %>
-  </div>
-< end %>
--->
 

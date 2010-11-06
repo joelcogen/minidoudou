@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101031135442) do
+ActiveRecord::Schema.define(:version => 20101106133111) do
 
   create_table "base_rom_packages", :force => true do |t|
     t.integer  "base_rom_id"
@@ -29,6 +29,21 @@ ActiveRecord::Schema.define(:version => 20101031135442) do
     t.integer  "device_id"
     t.string   "file_path"
     t.text     "to_remove"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "configuration_packages", :force => true do |t|
+    t.integer  "configuration_id"
+    t.integer  "package_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "configurations", :force => true do |t|
+    t.string   "name"
+    t.integer  "base_rom_id"
+    t.string   "file_path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

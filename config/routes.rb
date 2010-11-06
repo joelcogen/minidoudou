@@ -1,6 +1,5 @@
 Minidoudou::Application.routes.draw do
 
-
   resources :packages
 
   #resources :base_roms
@@ -8,6 +7,7 @@ Minidoudou::Application.routes.draw do
   resources :devices do
     resources :base_roms do
       resources :base_rom_packages
+      resources :configurations
     end
   end
 
