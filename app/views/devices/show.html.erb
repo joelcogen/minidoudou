@@ -16,7 +16,7 @@
 
 <ul>
 <% @device.base_roms.select{|r| r.old && !r.dev}.each do |base_rom| %>
-  <li><%= link_to base_rom.name, base_rom %></li>
+  <li><%= link_to base_rom.name, device_base_rom_configurations_path(@device, base_rom) %></li>
 <% end %>
 </ul>
 
@@ -24,7 +24,7 @@
 
 <ul>
 <% @device.base_roms.select{|r| r.dev}.each do |base_rom| %>
-  <li><%= link_to base_rom.name, base_rom %></li>
+  <li><%= link_to base_rom.name, device_base_rom_configurations_path(@device, base_rom) %></li>
 <% end %>
 </ul>
 
