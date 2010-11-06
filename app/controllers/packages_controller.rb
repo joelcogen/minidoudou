@@ -1,4 +1,6 @@
 class PackagesController < ApplicationController
+  before_filter :authenticate, :except => [:index, :show]
+
   # GET /packages
   # GET /packages.xml
   def index

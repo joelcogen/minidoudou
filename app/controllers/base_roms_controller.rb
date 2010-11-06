@@ -1,4 +1,6 @@
 class BaseRomsController < ApplicationController
+  before_filter :authenticate, :except => [:index, :show]
+
   # GET /base_roms
   # GET /base_roms.xml
   def index

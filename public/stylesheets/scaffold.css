@@ -1,4 +1,8 @@
-body { background-color: #fff; color: #333; }
+body {
+  background-color: #fff;
+  color: #333;
+  padding-top: 10px;
+}
 
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
@@ -54,3 +58,25 @@ div.field, div.actions {
   font-size: 12px;
   list-style: square;
 }
+
+#admin {
+ position: absolute;
+ top: 0;
+ right: 0;
+ padding: 2px 5px;
+ text-align: right;
+ background: #a00;
+ color: white;
+}
+#admin a {
+  color: white;
+}
+
+#nav {
+ position: absolute;
+ top: 0;
+ left: 0;
+ padding: 2px 5px;
+ text-align: left;
+}
+

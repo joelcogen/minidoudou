@@ -1,4 +1,6 @@
 class ConfigurationsController < ApplicationController
+  before_filter :authenticate, :except => [:index, :show, :new, :create]
+
   # GET /configurations
   # GET /configurations.xml
   def index
