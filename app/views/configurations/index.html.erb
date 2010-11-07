@@ -6,7 +6,7 @@
   <%= link_to 'Back', @base_rom.device %>
 </div>
 
-<pre><%= @base_rom.info %></pre>
+<p><%= @base_rom.info.split("\n").join("<br/>").html_safe %></p>
 
 <table>
   <tr>
@@ -18,9 +18,9 @@
 
 <% @configurations.sort {|c1,c2| c1.file_path.nil? ? 0 : 1}.each do |configuration| %>
   <tr>
-    <td><%= configuration.name %></td>
-    <td><%= configuration.file_path.nil? ? 'Pending...' : 'Ready' %></td>
-    <td><%= configuration.packages.collect {|p| p.fullname}.join(', ') %></td>
+    <td><strong><%= configuration.name %></strong></td>
+    <td><%= configuration.file_path.nil? ? '<em>Pending...</em>'.html_safe : 'Ready' %></td>
+    <td><%= configuration.packages.empty? ? '<em>None</em>'.html_safe : configuration.packages.collect {|p| p.fullname}.join('<br/>').html_safe %></td>
     <td><%= configuration.file_path.nil? ? '' : link_to('Download', '/'+configuration.file_path) %></td>
   </tr>
 <% end %>

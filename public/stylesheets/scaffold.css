@@ -24,6 +24,15 @@ div.field, div.actions {
   margin-bottom: 10px;
 }
 
+table tr td {
+  vertical-align: top;
+  padding: 5px;
+  padding-right: 50px;
+}
+table tr th {
+  text-align: left;
+}
+
 #notice {
   color: green;
 }
