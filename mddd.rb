@@ -80,6 +80,7 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
     package_size = `du -s #{package.file_path} | awk '{print $1}'`.to_i
     if system_used+package_size > device.system_size*1024
       system_full = true
+      system "mkdir files/tmp/data files/tmp/data/app"
     end
 
     log "Adding APK '#{package.fullname}' from '#{package.file_path}'#{system_full ? " (/data)" : ""}"
