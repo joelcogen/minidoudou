@@ -21,7 +21,12 @@
     <td><strong><%= configuration.name %></strong></td>
     <td><%= configuration.file_path.nil? ? '<em>Pending...</em>'.html_safe : 'Ready' %></td>
     <td><%= configuration.packages.empty? ? '<em>None</em>'.html_safe : configuration.packages.collect {|p| p.fullname}.join('<br/>').html_safe %></td>
-    <td><%= configuration.file_path.nil? ? '' : link_to('Download', '/'+configuration.file_path) %></td>
+    <td>
+      <% unless configuration.file_path.nil? %>
+        <%= link_to('Download', '/'+configuration.file_path) %><br/>
+        <%= image_tag "http://joelcogen.com/qr/img.php?u=http://#{request.host}/#{configuration.file_path}", :size=>'100x100', :alt=>'qr-code' %>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
