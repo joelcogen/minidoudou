@@ -11,7 +11,17 @@
     </div>
   <% end %>
 
-  <% @base_rom.base_rom_packages.sort_by {|p1,p2| p1.mandatory ? 0 : 1 }.each do |brp| %>
+  <h2>Options</h2>
+  <% @base_rom.base_rom_packages.select {|p| !p.package.apk}.sort_by {|p1,p2| p1.mandatory ? 0 : 1 }.each do |brp| %>
+  <% package = brp.package %>
+    <div class="field">
+      <%= check_box 'packages', package.id, brp.mandatory ? {:disabled=>'disabled', :checked=>'checked'} : {} %>
+      <%= package.name %>
+    </div>
+  <% end %>
+
+  <h2>Applications</h2>
+  <% @base_rom.base_rom_packages.select {|p| p.package.apk}.sort_by {|p1,p2| p1.mandatory ? 0 : 1 }.each do |brp| %>
   <% package = brp.package %>
     <div class="field">
       <%= check_box 'packages', package.id, brp.mandatory ? {:disabled=>'disabled', :checked=>'checked'} : {} %>
