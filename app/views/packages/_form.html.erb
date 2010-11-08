@@ -30,7 +30,10 @@
     <%= file_field 'upload', 'datafile' %>
   </div>
   <div class="field">
-    <%= f.check_box :apk %> <%= f.label 'Apk (copied in /system/app/)' %>
+    <%= f.check_box :apk %> <%= f.label 'APK' %>
+  </div>
+  <div class="field">
+    <%= f.check_box :system_only %> <%= f.label 'Must be in /system/, not /data (APK only)' %>
   </div>
 
   <div class="actions">

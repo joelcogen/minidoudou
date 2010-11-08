@@ -74,7 +74,7 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   end
 
   File.open(us_path, "w") { |f| f.puts us }
-  config.packages.select {|p| p.apk}.each do |package|
+  config.packages.select {|p| p.apk}.sort_by {|p| p.system_only ? 0 : 1}.each do |package|
     # Check /system usage
     system_full = false
     system_used = `du -s files/tmp/system | awk '{print $1}'`.to_i

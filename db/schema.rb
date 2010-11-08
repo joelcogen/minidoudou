@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101108110909) do
+ActiveRecord::Schema.define(:version => 20101108120408) do
 
   create_table "base_rom_packages", :force => true do |t|
     t.integer  "base_rom_id"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20101108110909) do
     t.boolean  "apk"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "system_only"
   end
 
 end
