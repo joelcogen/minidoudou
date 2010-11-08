@@ -73,10 +73,17 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   end
 
   File.open(us_path, "w") { |f| f.puts us }
-
   config.packages.select {|p| p.apk}.each do |package|
-    log "Adding APK '#{package.fullname}' from '#{package.file_path}'"
-    system "cp #{package.file_path} -d files/tmp/system/app" or raise "Can't copy '#{package.file_path}'"
+    # Check /system usage
+    system_full = false
+    system_used = `du -s files/tmp/system | awk '{print $1}'`.to_i
+    package_size = `du -s #{package.file_path} | awk '{print $1}'`.to_i
+    if system_used+package_size > device.system_size*1024
+      system_full = true
+    end
+
+    log "Adding APK '#{package.fullname}' from '#{package.file_path}'#{system_full ? " (/data)" : ""}"
+    system "cp #{package.file_path} files/tmp/#{system_full ? "data" : "system"}/app/" or raise "Can't copy '#{package.file_path}'"
   end
 
   zipname = "MDD_#{device.name.split(" ").join("_")}_#{base_rom.name.split(" ").join("_")}_#{config.name.split(" ").join("_")}.zip"

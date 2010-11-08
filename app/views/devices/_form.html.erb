@@ -19,7 +19,12 @@
     <%= f.label :image_url %><br />
     <%= f.text_field :image_url %>
   </div>
+  <div class="field">
+    <%= f.label '/system partition size (MB)' %><br />
+    <%= f.text_field :system_size %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
