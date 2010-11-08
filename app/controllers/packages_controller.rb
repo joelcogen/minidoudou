@@ -4,7 +4,7 @@ class PackagesController < ApplicationController
   # GET /packages
   # GET /packages.xml
   def index
-    @packages = Package.all
+    @packages = Package.all.sort_by {|p| p.name}
     @current_packages = @packages.select {|p| !p.old}
     @old_packages = @packages.select {|p| p.old}
 
