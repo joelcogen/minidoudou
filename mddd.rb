@@ -62,6 +62,11 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   us << "ui_print(\" \");\n"
   us << File.read(us_path) or raise "Can't read updater_script from base ROM"
   system "rm #{us_path}" or raise "Can't remove updater_script from base ROM"
+  # /data/app extraction
+  us << "mount(\"MTD\", \"userdata\", \"/data\");"
+  us << "package_extract_dir(\"data\", \"/data\");"
+  us << "set_perm(1000, 1000, 0771, \"/data/app\");"
+  us << "unmount(\"/data\");"
 
   config.packages.select {|p| !p.apk}.each do |package|
     log "Extracting package '#{package.fullname}' from '#{package.file_path}'"
@@ -74,6 +79,8 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   end
 
   File.open(us_path, "w") { |f| f.puts us }
+
+  File.mkpath "files/tmp/data/app" or raise "Can't create /data/app"
   config.packages.select {|p| p.apk}.sort_by {|p| p.system_only ? 0 : 1}.each do |package|
     # Check /system usage
     system_full = false
@@ -81,7 +88,6 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
     package_size = `du -s #{package.file_path} | awk '{print $1}'`.to_i
     if system_used+package_size > device.system_size*1024
       system_full = true
-      File.mkpath "files/tmp/data/app" or raise "Can't create /data/app"
     end
 
     log "Adding APK '#{package.fullname}' from '#{package.file_path}'#{system_full ? " (/data)" : ""}"
