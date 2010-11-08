@@ -5,7 +5,7 @@ class ConfigurationsController < ApplicationController
   # GET /configurations.xml
   def index
     @base_rom = BaseRom.find(params[:base_rom_id])
-    @configurations = @base_rom.configurations.sort_by {|c| c.created_at}
+    @configurations = @base_rom.configurations.sort_by {|c| c.created_at}.reverse
 
     respond_to do |format|
       format.html # index.html.erb
