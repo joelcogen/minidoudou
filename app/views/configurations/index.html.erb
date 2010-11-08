@@ -16,7 +16,7 @@
     <th></th>
   </tr>
 
-<% @configurations.sort {|c1,c2| c1.file_path.nil? ? 0 : 1}.each do |configuration| %>
+<% @configurations.each do |configuration| %>
   <tr>
     <td><strong><%= configuration.name %></strong></td>
     <td><%= configuration.file_path.nil? ? '<em>Pending...</em>'.html_safe : 'Ready' %></td>
