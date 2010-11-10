@@ -94,7 +94,7 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
     system "cp #{package.file_path} files/tmp/#{system_full ? "data" : "system"}/app/" or raise "Can't copy '#{package.file_path}'"
   end
 
-  zipname = "MDD_#{device.name}_#{base_rom.name}_#{config.name}.zip".gsub(' ', '_').gsub(/[^[:alnum:]_]/, '')
+  zipname = "MDD_#{device.name}_#{base_rom.name}_#{config.name}.zip".gsub(' ', '_').gsub(/[^[:alnum:]_.]/, '')
   log "Zipping as '#{zipname}'"
   system "cd files/tmp; zip -rq #{zipname}.unsigned *" or raise "Can't zip '#{zipname}'"
 
