@@ -1,3 +1,9 @@
+<script>
+  jQuery(function() {
+	  jQuery( "#accordion" ).accordion();
+  });
+</script>
+
 <p id="notice"><%= notice %></p>
 
 <div id="nav">
@@ -6,27 +12,49 @@
 
 <h1><%= @device.name %></h1>
 
-<ul>
-<% @device.base_roms.select{|r| !r.old && !r.dev}.each do |base_rom| %>
-  <li><%= link_to base_rom.name, device_base_rom_configurations_path(@device, base_rom) %></li>
-<% end %>
-</ul>
+<div id="accordion">
+  <h3><a href="#">Current</a></h3>
+  <div>
+    <% base_roms = @device.base_roms.select{|r| !r.old && !r.dev} %>
+    <% if base_roms.count == 0 %>
+      <p>No ROMs here yet</p>
+    <% else %>
+      <ul>
+      <% base_roms.each do |base_rom| %>
+        <li><%= link_to base_rom.name, device_base_rom_configurations_path(@device, base_rom) %></li>
+      <% end %>
+      </ul>
+    <% end %>
+  </div>
 
-<h2>Deprecated</h2>
+  <h3><a href="#">Deprecated</a></h3>
+  <div>
+    <% base_roms = @device.base_roms.select{|r| r.old && !r.dev} %>
+    <% if base_roms.count == 0 %>
+      <p>No ROMs here yet</p>
+    <% else %>
+      <ul>
+      <% base_roms.each do |base_rom| %>
+        <li><%= link_to base_rom.name, device_base_rom_configurations_path(@device, base_rom) %></li>
+      <% end %>
+      </ul>
+    <% end %>
+  </div>
 
-<ul>
-<% @device.base_roms.select{|r| r.old && !r.dev}.each do |base_rom| %>
-  <li><%= link_to base_rom.name, device_base_rom_configurations_path(@device, base_rom) %></li>
-<% end %>
-</ul>
-
-<h2>In development</h2>
-
-<ul>
-<% @device.base_roms.select{|r| r.dev}.each do |base_rom| %>
-  <li><%= link_to base_rom.name, device_base_rom_configurations_path(@device, base_rom) %></li>
-<% end %>
-</ul>
+  <h3><a href="#">In development</a></h3>
+  <div>
+    <% base_roms = @device.base_roms.select{|r| r.dev} %>
+    <% if base_roms.count == 0 %>
+      <p>No ROMs here yet</p>
+    <% else %>
+      <ul>
+      <% base_roms.each do |base_rom| %>
+        <li><%= link_to base_rom.name, device_base_rom_configurations_path(@device, base_rom) %></li>
+      <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>
 
 <div id="admin">
   <%= link_to 'Edit device', edit_device_path(@device) %> | <%= link_to 'New ROM', new_device_base_rom_path(@device) %>
