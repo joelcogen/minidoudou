@@ -5,7 +5,6 @@ require 'rubygems'
 require 'active_record'
 require 'yaml'
 require 'ftools'
-require 'mddd_easyshare'
 
 # Logging
 def timestamp
@@ -100,14 +99,11 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   system "cd files/tmp; zip -rq #{zipname}.unsigned *" or raise "Can't zip '#{zipname}'"
 
   log "Signing"
-  system "java -cp testsign.jar testsign files/tmp/#{zipname}.unsigned files/tmp/#{zipname}" or raise "Can't sign 'files/tmp/#{zipname}.unsigned' as 'files/tmp/#{zipname}'"
-
-  log "Uploading"
-  url = upload "files/tmp/#{zipname}"
+  system "java -cp testsign.jar testsign files/tmp/#{zipname}.unsigned public/download/#{zipname}" or raise "Can't sign 'files/tmp/#{zipname}.unsigned' as 'public/download/#{zipname}'"
 
   system "rm -rf files/tmp/*" or raise "Can't empty tmp"
 
-  config.file_path = url
+  config.file_path = "download/#{zipname}"
   config.save or raise "Can't save configuration #{config.id} to DB"
 
   successes += 1
