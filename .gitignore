@@ -4,3 +4,4 @@ log/*.log
 tmp/**/*
 files/*
 public/download/*
+mddd_easyshare_config.rb
