@@ -42,6 +42,9 @@ failures = 0
 Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   begin
 
+  # Cleanup first to make sure we start nice
+  system "rm -rf files/tmp/*"
+
   base_rom = config.base_rom
   device = base_rom.device
   log "Creating '#{config.name}' from '#{base_rom.name}' for '#{device.name}'"
