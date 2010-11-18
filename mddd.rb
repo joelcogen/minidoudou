@@ -103,12 +103,13 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   #system "java -cp testsign.jar testsign files/tmp/#{zipname}.unsigned public/download/#{zipname}" or raise "Can't sign 'files/tmp/#{zipname}.unsigned' as 'public/download/#{zipname}'"
   system "java -cp testsign.jar testsign files/tmp/#{zipname}.unsigned files/tmp/#{zipname}" or raise "Can't sign 'files/tmp/#{zipname}.unsigned' as 'files/tmp/#{zipname}'"
 
+  log "Uploading"
   file_path = ss_upload "files/tmp/#{zipname}"
   raise "Error uploading to SendSpace" if file_path.nil?
 
   system "rm -rf files/tmp/*" or raise "Can't empty tmp"
 
-  #config.file_path = "download/#{zipname}"
+  #config.file_path = "/download/#{zipname}"
   config.file_path = file_path
   config.save or raise "Can't save configuration #{config.id} to DB"
 
