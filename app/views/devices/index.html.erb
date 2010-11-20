@@ -1,7 +1,7 @@
 <h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
 Welcome to Minidoudou !</h1>
 
-<p>Get started now:</p>
+<h3>Get started now!</h3>
 <ol>
   <li>Select your device below</li>
   <li>Choose the base ROM you want to customize</li>
@@ -9,14 +9,15 @@ Welcome to Minidoudou !</h1>
   <li>If you made your own, wait a few minutes for the system to build it</li>
   <li>Download and flash like any other ROM</li>
 </ol>
-<p>Minidoudou is still under development, so don't expect too much right now... After a first test phase, we will be looking for contributors to support more devices and base ROMs.</p>
-<p>Report bugs, give us your opinion or just say hi on <a href="http://forum.xda-developers.com/showthread.php?t=834868">our topic on XDA developers</a>!</p>
 
 <ul>
 <% @devices.each do |device| %>
   <li><%= device.image_url %> <%= link_to device.name, device %></li>
 <% end %>
 </ul>
+
+<p>Minidoudou is still under development, so don't expect too much right now... After a first test phase, we will be looking for contributors to support more devices and base ROMs.</p>
+<p>Report bugs, give us your opinion or just say hi on <a href="http://forum.xda-developers.com/showthread.php?t=834868">our topic on XDA developers</a>!</p>
 
 <div id="admin">
   <%= link_to 'New device', new_device_path %> |

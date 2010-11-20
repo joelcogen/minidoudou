@@ -11,6 +11,10 @@ body, p, ol, ul, td {
   line-height: 18px;
 }
 
+img {
+  border: 0;
+}
+
 h1 {
   display: none;
 }
@@ -48,6 +52,7 @@ h1 {
   height: 6px;
   margin: 0 auto;
   margin-top: 5px;
+  margin-bottom: 0;
   padding: 0;
   background: url('images/topbar.gif') top center;
 }
@@ -63,7 +68,8 @@ h1 {
   width: 780px;
   background: white url('images/content_bg.png') top center repeat-y;
   margin: 0 auto;
-  padding: 10px;
+  padding: 5px 10px;
+  padding-bottom: 15px;
 }
 
 #footer {
@@ -152,7 +158,7 @@ table tr th {
 
 #admin {
  position: absolute;
- top: 0;
+ bottom: 0;
  right: 0;
  padding: 2px 5px;
  text-align: right;
@@ -161,13 +167,5 @@ table tr th {
 }
 #admin a {
   color: white;
-}
-
-#nav {
- position: absolute;
- top: 0;
- left: 0;
- padding: 2px 5px;
- text-align: left;
 }
 
