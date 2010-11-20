@@ -10,7 +10,50 @@
 </head>
 <body>
 
-<%= yield %>
+<div id="banner"></div>
+
+<div id="navbar"></div>
+<div id="nav_bottom"></div>
+
+<div id="content_top"></div>
+<div id="content">
+  <%= yield %>
+</div>
+<div id="content_bottom"></div>
+
+<div id="footer">
+  This website is made available in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. By installing software downloaded from this website on your phone, you are probably voiding the manufacturer's warranty. YOU HAVE BEEN WARNED.
+</div>
+
+
+<script type="text/javascript">
+  document.getElementById('navbar').innerHTML = document.getElementsByTagName('h1')[0].innerHTML;
+  document.getElementsByTagName('h1')[0].innerHTML = '';
+</script>
+
+<div class="adsense" id="ad_left">
+  <script type="text/javascript"><!--
+  google_ad_client = "ca-pub-6736818645777019";
+  /* skyscraper mdd */
+  google_ad_slot = "3734738974";
+  google_ad_width = 160;
+  google_ad_height = 600;
+  //-->
+  </script>
+  <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+</div>
+
+<div class="adsense" id="ad_right">
+  <script type="text/javascript"><!--
+  google_ad_client = "ca-pub-6736818645777019";
+  /* skyscraper mdd */
+  google_ad_slot = "3734738974";
+  google_ad_width = 160;
+  google_ad_height = 600;
+  //-->
+  </script>
+  <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+</div>
 
 </body>
 </html>
