@@ -1,8 +1,7 @@
-<h1><%= @base_rom.device.name %> &gt; <%= @base_rom.name %> &gt; New configuration</h1>
-
-<div id="nav">
-  <%= link_to 'Back', device_base_rom_configurations_path(@base_rom.device, @base_rom) %>
-</div>
+<h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
+<%= link_to @base_rom.device.name, @base_rom.device %> <%= image_tag 'nav_sep.png' %>
+<%= link_to @base_rom.name, device_base_rom_configurations_path(@base_rom.device, @base_rom) %> <%= image_tag 'nav_sep.png' %>
+New configuration</h1>
 
 <p><%= @base_rom.info.split("\n").join("<br/>").html_safe %></p>
 

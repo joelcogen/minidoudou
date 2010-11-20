@@ -1,8 +1,5 @@
-<h1>Packages</h1>
-
-<div id="nav">
-  <%= link_to 'Home', '/' %>
-</div>
+<h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
+Packages</h1>
 
 <ul>
 <% @current_packages.each do |package| %>

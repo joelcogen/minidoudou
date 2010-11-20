@@ -1,8 +1,7 @@
-<h1>New Base ROM for <%= @device.name %></h1>
+<h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
+<%= link_to @base_rom.device.name, @base_rom.device %> <%= image_tag 'nav_sep.png' %>
+New Base ROM</h1>
 
-<div id="nav">
-  <%= link_to 'Back', @device %>
-</div>
 
 <%= render 'form' %>
 

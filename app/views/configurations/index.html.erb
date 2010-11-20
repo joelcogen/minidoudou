@@ -1,10 +1,8 @@
-<h1><%= @base_rom.device.name %> &gt; <%= @base_rom.name %> &gt; Configurations</h1>
+<h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
+<%= link_to @base_rom.device.name, @base_rom.device %> <%= image_tag 'nav_sep.png' %>
+<%= @base_rom.name %></h1>
 
 <p id="notice"><%= notice %></p>
-
-<div id="nav">
-  <%= link_to 'Back', @base_rom.device %>
-</div>
 
 <p><%= @base_rom.info.split("\n").join("<br/>").html_safe %></p>
 

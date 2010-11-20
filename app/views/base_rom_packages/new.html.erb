@@ -1,8 +1,7 @@
-<h1>Adding package to <%= @base_rom.name %></h1>
-
-<div id="nav">
-  <%= link_to 'Back', [@base_rom.device, @base_rom] %>
-</div>
+<h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
+<%= link_to @base_rom.device.name, @base_rom.device %> <%= image_tag 'nav_sep.png' %>
+<%= link_to @base_rom.name, [@base_rom.device, @base_rom] %> <%= image_tag 'nav_sep.png' %>
+Add package</h1>
 
 <%= render 'form' %>
 

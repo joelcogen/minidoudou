@@ -1,8 +1,7 @@
-<h1>Editing package</h1>
-
-<div id="nav">
-  <%= link_to 'Back', @package %>
-</div>
+<h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
+<%= link_to 'Packages', packages_path %> <%= image_tag 'nav_sep.png' %>
+<%= link_to @package.name, @package %> <%= image_tag 'nav_sep.png' %>
+Edit</h1>
 
 <%= render 'form' %>
 
