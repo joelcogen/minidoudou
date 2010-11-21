@@ -24,7 +24,7 @@
       <% if configuration.packages.empty? %>
         <em>None</em>
       <% else %>
-        <%= link_to "#{configuration.packages.count} packages", "#", :onClick => "javascript: jQuery('#packages_#{configuration.id}').toggle('blind');" %>
+        <%= link_to "#{configuration.packages.count} packages", "javascript:", :onClick => "javascript: jQuery('#packages_#{configuration.id}').toggle('blind');" %>
         <ul id="packages_<%= configuration.id %>">
           <%= configuration.packages.collect {|p| '<li>' + p.fullname + '</li>'}.join().html_safe %>
         </ul>
@@ -34,7 +34,7 @@
     <td>
       <% unless configuration.file_path.nil? %>
         <%= link_to 'Download', configuration.file_path %> |
-        <%= link_to 'QR', "#", :onClick => "javascript: jQuery('#qr_#{configuration.id}').toggle('blind');" %>
+        <%= link_to 'QR', "javascript:", :onClick => "javascript: jQuery('#qr_#{configuration.id}').toggle('blind');" %>
         <br/><%= image_tag "http://joelcogen.com/qr/img.php?u=#{configuration.file_path}", :size=>'100x100', :alt=>'qr-code', :id=>"qr_#{configuration.id}" %>
         <script>jQuery('#qr_<%= configuration.id %>').hide()</script>
       <% end %>
