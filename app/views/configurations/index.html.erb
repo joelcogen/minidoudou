@@ -6,6 +6,8 @@
 
 <p><%= @base_rom.info.split("\n").join("<br/>").html_safe %></p>
 
+<h3><%= link_to 'Make my own!', new_device_base_rom_configuration_path(@base_rom.device, @base_rom) %></h3>
+
 <table>
   <tr>
     <th>Name</th>
@@ -41,8 +43,7 @@
 <% end %>
 </table>
 
-<br/>
-<h2><%= link_to 'Make my own!', new_device_base_rom_configuration_path(@base_rom.device, @base_rom) %></h2>
+<h3><%= link_to 'Make my own!', new_device_base_rom_configuration_path(@base_rom.device, @base_rom) %></h3>
 
 <div id="admin">
   <%= link_to 'Edit this ROM', [@base_rom.device, @base_rom] %>
