@@ -22,7 +22,7 @@ h1 {
 #banner {
   width: 800px;
   height: 150px;
-  margin: 0 auto;
+  margin: 5px auto;
   background: url('images/mdd_logo.png') top center;
 }
 
