@@ -86,10 +86,7 @@ h1 {
 .adsense {
   width: 160px;
   position: absolute;
-  top: 10px;
-}
-.adsense iframe {
-
+  top: 15px;
 }
 #ad_left {
   left: 10px;

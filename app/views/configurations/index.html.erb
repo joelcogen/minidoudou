@@ -33,8 +33,7 @@
     </td>
     <td>
       <% unless configuration.file_path.nil? %>
-        <%= link_to 'Download', configuration.file_path %> |
-        <%= link_to 'QR', "javascript:", :onClick => "javascript: jQuery('#qr_#{configuration.id}').toggle('blind');" %>
+        <%= link_to 'Download', configuration.file_path %>&nbsp;|&nbsp;<%= link_to 'QR', "javascript:", :onClick => "javascript: jQuery('#qr_#{configuration.id}').toggle('blind');" %>
         <br/><%= image_tag "http://joelcogen.com/qr/img.php?u=#{configuration.file_path}", :size=>'100x100', :alt=>'qr-code', :id=>"qr_#{configuration.id}" %>
         <script>jQuery('#qr_<%= configuration.id %>').hide()</script>
       <% end %>
