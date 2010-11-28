@@ -5,7 +5,7 @@
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag 'jquery-1.4.2.min.js' %>
   <%= javascript_include_tag 'jquery-ui-1.8.6.custom.min.js' %>
-  <%= javascript_include_tag :defaults %>
+  <!--<%= javascript_include_tag :defaults %>-->
   <%= csrf_meta_tag %>
 </head>
 <body>
@@ -25,12 +25,13 @@
   This website is made available in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. By installing software downloaded from this website on your phone, you are probably voiding the manufacturer's warranty. YOU HAVE BEEN WARNED.
 </div>
 
-
+<!-- Move the nav text to the nav area -->
 <script type="text/javascript">
   document.getElementById('navbar').innerHTML = document.getElementsByTagName('h1')[0].innerHTML;
   document.getElementsByTagName('h1')[0].innerHTML = '';
 </script>
 
+<!-- Ads -->
 <div class="adsense" id="ad_left">
   <script type="text/javascript"><!--
   google_ad_client = "ca-pub-6736818645777019";
@@ -42,7 +43,6 @@
   </script>
   <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 </div>
-
 <div class="adsense" id="ad_right">
   <script type="text/javascript"><!--
   google_ad_client = "ca-pub-6736818645777019";
@@ -55,9 +55,15 @@
   <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 </div>
 
+<!-- Center the ads vertically and
+     hide the right ad if we lack horizontal space -->
 <script type="text/javascript">
-  if(document.width<1150) {
-    document.getElementById('ad_left').style.display = 'none';
+  if(window.innerHeight>610) {
+    var topspace = (window.innerHeight - 600) / 2;
+    document.getElementById('ad_left').style.top = topspace+'px';
+    document.getElementById('ad_right').style.top = topspace+'px';
+  }
+  if(window.innerWidth<1150) {
     document.getElementById('ad_right').style.display = 'none';
   }
 </script>

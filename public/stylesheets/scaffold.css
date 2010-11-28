@@ -2,7 +2,7 @@ body {
   background: #5f5f5f url('images/html_bg.png') top center repeat-x;
   color: #333;
   margin: 0;
-  padding: 0;
+  padding: 0 170px;
 }
 
 body, p, ol, ul, td {
@@ -86,7 +86,7 @@ h1 {
 .adsense {
   width: 160px;
   position: absolute;
-  bottom: 5px;
+  top: 5px;
 }
 #ad_left {
   left: 5px;
