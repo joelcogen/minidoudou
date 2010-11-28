@@ -18,7 +18,7 @@
 
 <% @configurations.each do |configuration| %>
   <tr>
-    <td><strong><%= configuration.name %></strong></td>
+    <td style="width: 180px;"><strong><%= configuration.name %></strong></td>
     <td><%= configuration.file_path.nil? ? '<em>Pending...</em>'.html_safe : 'Ready' %></td>
     <td>
       <% if configuration.packages.empty? %>
