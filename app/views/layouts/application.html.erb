@@ -58,12 +58,12 @@
 <!-- Center the ads vertically and
      hide the right ad if we lack horizontal space -->
 <script type="text/javascript">
-  if(window.innerHeight>610) {
-    var topspace = (window.innerHeight - 600) / 2;
+  if(jQuery(window).height()>610) {
+    var topspace = (jQuery(window).height() - 600) / 2;
     document.getElementById('ad_left').style.top = topspace+'px';
     document.getElementById('ad_right').style.top = topspace+'px';
   }
-  if(window.innerWidth<1150) {
+  if(jQuery(window).width()<1150) {
     document.getElementById('ad_right').style.display = 'none';
   }
 </script>
