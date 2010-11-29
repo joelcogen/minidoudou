@@ -52,11 +52,6 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   log "Extracting '#{base_rom.name}' from '#{base_rom.file_path}'"
   system "unzip -qo #{base_rom.file_path} -d files/tmp/" or raise "Can't unzip '#{base_rom.file_path}'"
 
-  log "Removing stuff"
-  base_rom.to_remove.each_line do |file|
-    system "rm files/tmp/#{file.strip}" or raise "Can't remove '#{file.strip}'"
-  end
-
   us_path = "files/tmp/META-INF/com/google/android/updater-script"
   us = "ui_print(\" \");\n"
   us << "ui_print(\"This ROM was created using Minidoudou [minidoudou.joelcogen.com]\");\n"
