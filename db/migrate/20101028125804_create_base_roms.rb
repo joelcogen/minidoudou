@@ -7,7 +7,6 @@ class CreateBaseRoms < ActiveRecord::Migration
       t.string :url
       t.integer :device_id
       t.string :file_path
-      t.text :to_remove
       t.text :info
 
       t.timestamps
