@@ -58,6 +58,8 @@ class ConfigurationsController < ApplicationController
       apk = Apk.find(change.first)
       destination = change.last
 
+      puts "#{apk} to #{destination}"
+
       next if apk.location == destination || (destination=='remove' && apk.base_rom.nil?)
       @configuration.changes << Change.new(:apk => apk, :destination => destination)
     end

@@ -1,3 +1,20 @@
+<script>
+	jQuery(function() {
+		jQuery( "#remove, #data, #system" ).sortable({
+			connectWith: ".apklist",
+			placeholder: "ui-state-default",
+			stop: function(event, ui) {
+			  var apk_id = event.toElement.id;
+			  apk_id = ui.item.context.id;
+			  var new_value = event.toElement.offsetParent.id.split('_')[0];
+			  new_value = ui.item.context.parentElement.id;
+			  console.log(apk_id + ':' + document.getElementById('apk_'+apk_id).value + '->' + new_value);
+			  document.getElementById('apk_'+apk_id).value = new_value;
+		  }
+		}).disableSelection();
+	});
+</script>
+
 <%= form_for([@base_rom.device, @base_rom, @configuration]) do |f| %>
   <% if @configuration.errors.any? %>
     <div id="error_explanation">
@@ -21,12 +38,44 @@
   <% end %>
 
   <h2>Applications</h2>
-  <% (@base_rom.apks + @extra_apks).sort_by {|a| a.name}.each do |apk| %>
-    <div class="field">
-      <%= apk.name %>
-      <%= select 'apk', apk.id, ['remove', 'data', 'system'], { :selected => apk.location } %>
-    </div>
-  <% end %>
+  <table id="apktable">
+    <tr>
+      <th>Removed</th>
+      <th>Data</th>
+      <th>System</th>
+    </tr>
+    <tr>
+      <td>
+        <ul id="remove" class="apklist ui-corner-all">
+          <% @extra_apks.sort_by {|a| a.name}.each do |apk| %>
+            <li class="ui-state-highlight <%= apk.expert ? 'expert' : '' %>" id="<%= apk.id %>">
+              <%= apk.name %><br/><span class="note"><%= apk.description %></span></li>
+            <%= hidden_field 'apk', apk.id, :value=>'remove' %>
+          <% end %>
+        </ul>
+      </td>
+      <td>
+        <ul id="data" class="apklist ui-corner-all">
+          <% @base_rom.apks.select {|a| a.location=='data'}.sort_by {|a| a.name}.each do |apk| %>
+            <li class="ui-state-highlight <%= apk.expert ? 'expert' : '' %>" id="<%= apk.id %>">
+              <%= apk.name %><br/><span class="note"><%= apk.description %></span>
+            </li>
+            <%= hidden_field 'apk', apk.id, :value=>'data' %>
+          <% end %>
+        </ul>
+      </td>
+      <td>
+        <ul id="system" class="apklist ui-corner-all">
+          <% @base_rom.apks.select {|a| a.location=='system'}.sort_by {|a| a.name}.each do |apk| %>
+            <li class="ui-state-highlight <%= apk.expert ? 'expert' : '' %>" id="<%= apk.id %>">
+              <%= apk.name %><br/><span class="note"><%= apk.description %></span></li>
+            <%= hidden_field 'apk', apk.id, :value=>'system' %>
+          <% end %>
+        </ul>
+        <span class="note">If system partition is full, some applications will be moved to data</span>
+      </td>
+    </tr>
+  </table>
 
   <div class="field">
     <%= f.label :name %><br />
