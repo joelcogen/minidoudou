@@ -11,8 +11,8 @@
     </div>
   <% end %>
 
-  <h2>Options</h2>
-  <% @base_rom.base_rom_packages.select {|p| !p.package.apk}.sort_by {|p| p.package.name}.sort_by {|p| p.mandatory ? 0 : 1 }.each do |brp| %>
+  <h2>Packages</h2>
+  <% @base_rom.base_rom_packages.sort_by {|p| p.package.name}.sort_by {|p| p.mandatory ? 0 : 1 }.each do |brp| %>
   <% package = brp.package %>
     <div class="field">
       <%= check_box 'packages', package.id, brp.mandatory ? {:disabled=>'disabled', :checked=>'checked'} : {} %>
@@ -21,11 +21,10 @@
   <% end %>
 
   <h2>Applications</h2>
-  <% @base_rom.base_rom_packages.select {|p| p.package.apk}.sort_by {|p| p.package.name}.sort_by {|p| p.mandatory ? 0 : 1 }.each do |brp| %>
-  <% package = brp.package %>
+  <% (@base_rom.apks + @extra_apks).sort_by {|a| a.name}.each do |apk| %>
     <div class="field">
-      <%= check_box 'packages', package.id, brp.mandatory ? {:disabled=>'disabled', :checked=>'checked'} : {} %>
-      <%= package.name %>
+      <%= apk.name %>
+      <%= select 'apk', apk.id, ['remove', 'data', 'system'], { :selected => apk.location } %>
     </div>
   <% end %>
 

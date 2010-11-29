@@ -17,7 +17,7 @@ class BaseRom < ActiveRecord::Base
       next unless apkname.end_with? '.apk'
       apk = Apk.new(:base_rom_id => id,
                     :name        => apkname.gsub('.apk', ''),
-                    :location    => "/system/app/#{apkname}",
+                    :location    => 'system',
                     :expert      => true)
       apk.save
     end
@@ -26,7 +26,7 @@ class BaseRom < ActiveRecord::Base
         next unless apkname.end_with? '.apk'
         apk = Apk.new(:base_rom_id => id,
                       :name        => apkname.gsub('.apk', ''),
-                      :location    => "/data/app/#{apkname}",
+                      :location    => 'data',
                       :expert      => true)
         apk.save
       end

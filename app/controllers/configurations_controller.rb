@@ -28,6 +28,7 @@ class ConfigurationsController < ApplicationController
   def new
     @base_rom = BaseRom.find(params[:base_rom_id])
     @configuration = @base_rom.configurations.new
+    @extra_apks = Apk.all.select {|a| a.base_rom.nil?}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -60,6 +61,7 @@ class ConfigurationsController < ApplicationController
       if @configuration.save
         format.html { redirect_to(device_base_rom_configurations_path(@base_rom.device, @base_rom), :notice => 'Your configuration was successfully created. It should be ready for download in about 5 minutes.') }
       else
+        @extra_apks = Apk.all.select {|a| a.base_rom.nil?}
         format.html { render :action => "new" }
       end
     end
