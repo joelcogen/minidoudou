@@ -17,9 +17,9 @@ Details</h1>
 <h2>APKs</h2>
 
 <ul>
-<% @base_rom.apks.each do |apk| %>
+<% @base_rom.apks.sort_by {|a| a.name}.sort_by {|a| a.expert ? 1 : 0}.each do |apk| %>
   <li>
-    <strong><%= link_to apk.name, apk %></strong><br/>
+    <strong><%= link_to apk.name, apk %></strong><%= apk.expert ? ' (expert)' : '' %><br/>
     <%= apk.description %>
   </li>
 <% end %>
