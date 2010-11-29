@@ -72,7 +72,7 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   us << "set_perm(1000, 1000, 0771, \"/data/app\");"
   us << "unmount(\"/data\");"
 
-  config.packages.select {|p| !p.apk}.each do |package|
+  config.packages.each do |package|
     log "Extracting package '#{package.fullname}' from '#{package.file_path}'"
     system "unzip -qo #{package.file_path} -d files/tmp/" or raise "Can't unzip '#{package.file_path}'"
 
@@ -85,17 +85,29 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   File.open(us_path, "w") { |f| f.puts us }
 
   File.mkpath "files/tmp/data/app" or raise "Can't create /data/app"
-  config.packages.select {|p| p.apk}.sort_by {|p| p.system_only ? 0 : 1}.each do |package|
+  config.changes.each do |change|
     # Check /system usage
-    system_full = false
-    system_used = `du -s files/tmp/system | awk '{print $1}'`.to_i
-    package_size = `du -s #{package.file_path} | awk '{print $1}'`.to_i
-    if system_used+package_size > device.system_size*1024
-      system_full = true
-    end
+    #system_full = false
+    #system_used = `du -s files/tmp/system | awk '{print $1}'`.to_i
+    #package_size = `du -s #{package.file_path} | awk '{print $1}'`.to_i
+    #if system_used+package_size > device.system_size*1024
+    #  system_full = true
+    #end
 
-    log "Adding APK '#{package.fullname}' from '#{package.file_path}'#{system_full ? " (/data)" : ""}"
-    system "cp #{package.file_path} files/tmp/#{system_full ? "data" : "system"}/app/" or raise "Can't copy '#{package.file_path}'"
+    log change.explain.gsub(/<\/?strong>/, '')
+    if change.destination == 'remove'
+      # Removal
+      File.unlink "files/tmp/#{change.apk.location}/app/#{change.apk.name}.apk" \
+        or raise "Can't remove 'files/tmp/#{change.apk.location}/app/#{change.apk.name}.apk'"
+    elsif change.apk.base_rom.nil?
+      # Addition
+      File.copy change.apk.location, "files/tmp/#{change.destination}/app/#{change.apk.name}.apk" \
+        or raise "Can't move '#{change.apk.location}' to 'files/tmp/#{change.destination}/app/#{change.apk.name}.apk'"
+    else
+      # Move
+      File.move "files/tmp/#{change.apk.location}/app/#{change.apk.name}.apk", "files/tmp/#{change.destination}/app/#{change.apk.name}.apk" \
+        or raise "Can't move 'files/tmp/#{change.apk.location}/app/#{change.apk.name}.apk' to 'files/tmp/#{change.destination}/app/#{change.apk.name}.apk'" \
+    end
   end
 
   zipname = "MDD_#{device.name}_#{base_rom.name}_#{config.name}.zip".gsub(' ', '_').gsub(/[^[:alnum:]_.]/, '')
