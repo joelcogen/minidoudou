@@ -1,4 +1,6 @@
 class ApksController < ApplicationController
+  before_filter :authenticate, :except => [:index, :show]
+
   # GET /apks
   # GET /apks.xml
   def index
