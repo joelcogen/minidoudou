@@ -19,7 +19,6 @@ class ConfigurationsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @configuration }
     end
   end
 
@@ -35,11 +34,6 @@ class ConfigurationsController < ApplicationController
     end
   end
 
-  # GET /configurations/1/edit
-  def edit
-    @configuration = Configuration.find(params[:id])
-  end
-
   # POST /configurations
   # POST /configurations.xml
   def create
@@ -47,6 +41,7 @@ class ConfigurationsController < ApplicationController
     @configuration = Configuration.new(params[:configuration])
     @configuration.base_rom = @base_rom
 
+    # Add packages
     packages = params[:packages]
     packages.each do |package|
       package_id = package.first
@@ -55,6 +50,16 @@ class ConfigurationsController < ApplicationController
 
       package = Package.find(package_id)
       @configuration.packages << package
+    end
+
+    # Compute APK changes
+    changes = params[:apk]
+    changes.each do |change|
+      apk = Apk.find(change.first)
+      destination = change.last
+
+      next if apk.location == destination || (destination=='remove' && apk.base_rom.nil?)
+      @configuration.changes << Change.new(:apk => apk, :destination => destination)
     end
 
     respond_to do |format|
@@ -67,22 +72,6 @@ class ConfigurationsController < ApplicationController
     end
   end
 
-  # PUT /configurations/1
-  # PUT /configurations/1.xml
-  def update
-    @configuration = Configuration.find(params[:id])
-
-    respond_to do |format|
-      if @configuration.update_attributes(params[:configuration])
-        format.html { redirect_to(@configuration, :notice => 'Configuration was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @configuration.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
   # DELETE /configurations/1
   # DELETE /configurations/1.xml
   def destroy
@@ -91,7 +80,6 @@ class ConfigurationsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(configurations_url) }
-      format.xml  { head :ok }
     end
   end
 end

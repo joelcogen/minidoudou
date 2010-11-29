@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  apk_id: 1
+  destination: MyString
+  configuration_id: 1
+
+two:
+  apk_id: 1
+  destination: MyString
+  configuration_id: 1
