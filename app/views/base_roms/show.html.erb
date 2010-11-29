@@ -5,6 +5,8 @@ Details</h1>
 
 <p id="notice"><%= notice %></p>
 
+<h2>Packages</h2>
+
 <ul>
 <% @base_rom.base_rom_packages.select {|p| !p.dev}.each do |base_rom_package|
      package = base_rom_package.package %>
@@ -12,18 +14,20 @@ Details</h1>
 <% end %>
 </ul>
 
-<h2>In development</h2>
+<h2>APKs</h2>
 
 <ul>
-<% @base_rom.base_rom_packages.select {|p| p.dev}.each do |base_rom_package|
-     package = base_rom_package.package %>
-  <li><%= package.fullname %> <%= base_rom_package.mandatory ? '(mandatory)' : '' %> | <%= link_to 'Remove', [@base_rom.device, @base_rom, base_rom_package], :method => 'DELETE', :confirm => 'Sure?' %></li>
+<% @base_rom.apks.each do |apk| %>
+  <li>
+    <strong><%= link_to apk.name, apk %></strong><br/>
+    <%= apk.description %>
+  </li>
 <% end %>
 </ul>
 
 <div id="admin">
   <%= link_to 'Edit info', edit_device_base_rom_path(@base_rom.device, @base_rom) %> |
   <%= link_to 'Add package', new_device_base_rom_base_rom_package_path(@base_rom.device, @base_rom) %> |
-  <%= link_to 'Delete', [@base_rom.device, @base_rom], :confirm => 'OMG are you absolutely sure? I mean, you could mark it deprecated, but deleting? Really? REALLY really?', :method => :delete %>
+  <%= link_to 'Delete', [@base_rom.device, @base_rom], :method => 'DELETE', :confirm => 'OMG are you absolutely sure? I mean, you could mark it deprecated, but deleting? Really? REALLY really?' %>
 </div>
 

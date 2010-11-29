@@ -6,7 +6,7 @@
 
 <p>
   <b>Base rom:</b>
-  <%= @apk.base_rom_id %>
+  <%= @apk.base_rom.nil? ? "Extra" : link_to("#{@apk.base_rom.name} for #{@apk.base_rom.device.name}", [@apk.base_rom.device, @apk.base_rom]) %>
 </p>
 
 <p>
@@ -31,6 +31,6 @@
 
 <div id="admin">
   <%= link_to 'Edit', edit_apk_path(@apk) %> |
-  <%= link_to 'Delete', @apk, :method => 'DELETE', :confirm => 'Really?' %>
+  <%= link_to 'Delete', @apk, :confirm => 'Really?', :method => :delete %>
 </div>
 

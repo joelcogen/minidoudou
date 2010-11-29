@@ -24,14 +24,6 @@
   <%= @package.file_path %>
 </p>
 
-<p>
-  <b>APK:</b>
-  <%= @package.apk %>
-  <br/>
-  <b>Must be in /system</b>
-  <%= @package.system_only %>
-</p>
-
 <div id="admin">
   <%= link_to 'Edit', edit_package_path(@package) %> |
   <%= link_to 'Delete', @package, :method => 'DELETE', :confirm => 'Really? Marking it as deprecated seems like a better idea...' %>

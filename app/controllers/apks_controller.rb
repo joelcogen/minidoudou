@@ -2,7 +2,7 @@ class ApksController < ApplicationController
   # GET /apks
   # GET /apks.xml
   def index
-    @apks = Apk.all
+    @apks = Apk.all.select {|a| a.base_rom.nil?}
 
     respond_to do |format|
       format.html # index.html.erb

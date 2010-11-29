@@ -55,6 +55,7 @@ class BaseRomsController < ApplicationController
 
     respond_to do |format|
       if @device.base_roms << @base_rom
+        @base_rom.find_apks
         format.html { redirect_to([@device, @base_rom], :notice => 'Base rom was successfully created.') }
       else
         format.html { render :action => "new" }
@@ -77,6 +78,9 @@ class BaseRomsController < ApplicationController
         return
       end
       @base_rom.file_path = file_path
+      # Refresh APKs
+      @base_rom.apks.each &:delete
+      @base_rom.find_apks
     end
 
     respond_to do |format|

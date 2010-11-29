@@ -26,7 +26,7 @@
   <div class="field">
     <%= f.label 'File:' %>
     <b><%= (@apk.location.nil? or @apk.location.empty? ) ? 'No file yet' : @apk.location %></b><br />
-    <%= file_field 'upload', 'datafile' %>
+    <%= @apk.base_rom.nil? ? file_field('upload', 'datafile') : '' %>
   </div>
 
   <div class="actions">
