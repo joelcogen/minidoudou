@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  base_rom_id: 1
+  name: MyString
+  description: MyString
+  location: MyString
+  expert: false
+
+two:
+  base_rom_id: 1
+  name: MyString
+  description: MyString
+  location: MyString
+  expert: false

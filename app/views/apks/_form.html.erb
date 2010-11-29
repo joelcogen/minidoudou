@@ -1,0 +1,36 @@
+<%= form_for(@apk, :html => {:multipart => true}) do |f| %>
+  <% if @apk.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@apk.errors.count, "error") %> prohibited this apk from being saved:</h2>
+
+      <ul>
+      <% @apk.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.check_box :expert %> <%= f.label :expert %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'File:' %>
+    <b><%= (@apk.location.nil? or @apk.location.empty? ) ? 'No file yet' : @apk.location %></b><br />
+    <%= file_field 'upload', 'datafile' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

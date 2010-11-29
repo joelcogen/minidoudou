@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101108120408) do
+ActiveRecord::Schema.define(:version => 20101129091908) do
+
+  create_table "apks", :force => true do |t|
+    t.integer  "base_rom_id"
+    t.string   "name"
+    t.string   "description"
+    t.string   "location"
+    t.boolean  "expert"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "base_rom_packages", :force => true do |t|
     t.integer  "base_rom_id"
@@ -62,10 +72,8 @@ ActiveRecord::Schema.define(:version => 20101108120408) do
     t.string   "version"
     t.boolean  "old"
     t.string   "file_path"
-    t.boolean  "apk"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "system_only"
   end
 
 end

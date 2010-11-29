@@ -1,0 +1,16 @@
+<h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
+APKs</h1>
+
+<ul>
+<% @apks.each do |apk| %>
+  <li>
+    <strong><%= link_to apk.name, apk %></strong><br/>
+    <%= apk.description %>
+  </li>
+<% end %>
+</ul>
+
+<div id="admin">
+  <%= link_to 'New APK', new_apk_path %>
+</div>
+

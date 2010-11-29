@@ -5,7 +5,6 @@ class CreatePackages < ActiveRecord::Migration
       t.string :version
       t.boolean :old
       t.string :file_path
-      t.boolean :apk
 
       t.timestamps
     end
@@ -15,3 +14,4 @@ class CreatePackages < ActiveRecord::Migration
     drop_table :packages
   end
 end
+

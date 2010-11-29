@@ -1,5 +1,7 @@
 Minidoudou::Application.routes.draw do
 
+  resources :apks
+
   resources :packages
 
   #resources :base_roms
