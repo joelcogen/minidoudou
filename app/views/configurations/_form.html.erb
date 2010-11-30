@@ -4,12 +4,10 @@
 			connectWith: ".apklist",
 			placeholder: "ui-state-default",
 			stop: function(event, ui) {
-			  var apk_id = event.toElement.id;
-			  apk_id = ui.item.context.id;
-			  var new_value = event.toElement.offsetParent.id.split('_')[0];
-			  new_value = ui.item.context.parentElement.id;
-			  console.log(apk_id + ':' + document.getElementById('apk_'+apk_id).value + '->' + new_value);
-			  document.getElementById('apk_'+apk_id).value = new_value;
+			  var apk_id = jQuery(ui.item.context).attr('id');
+        var new_value = jQuery(ui.item.context).parent('ul').attr('id');
+			  console.log(apk_id + ':' + jQuery('#apk_' + apk_id).val() + '->' + new_value);
+			  jQuery('#apk_' + apk_id).val(new_value);
 		  }
 		}).disableSelection();
 
