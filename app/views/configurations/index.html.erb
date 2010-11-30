@@ -26,19 +26,19 @@
       <% if (configuration.packages + configuration.changes).empty? %>
         <em>None</em>
       <% else %>
-        <%= link_to "#{(configuration.packages + configuration.changes).count} changes", "javascript:", :onClick => "javascript: jQuery('#packages_#{configuration.id}').toggle('blind');" %>
+        <%= link_to "#{(configuration.packages + configuration.changes).count} changes", "javascript:", :onClick => "javascript: $('#packages_#{configuration.id}').toggle('blind');" %>
         <ul id="packages_<%= configuration.id %>">
           <%= configuration.packages.collect {|p| "<li>Install <strong>#{p.fullname}</strong></li>"}.join().html_safe %>
           <%= configuration.changes.collect {|c| "<li>#{c.explain}</li>"}.join().html_safe %>
         </ul>
-        <script>jQuery('#packages_<%= configuration.id %>').hide()</script>
+        <script>$('#packages_<%= configuration.id %>').hide()</script>
       <% end %>
     </td>
     <td>
       <% unless configuration.file_path.nil? %>
-        <%= link_to 'Download', configuration.file_path %>&nbsp;|&nbsp;<%= link_to 'QR', "javascript:", :onClick => "javascript: jQuery('#qr_#{configuration.id}').toggle('blind');" %>
+        <%= link_to 'Download', configuration.file_path %>&nbsp;|&nbsp;<%= link_to 'QR', "javascript:", :onClick => "javascript: $('#qr_#{configuration.id}').toggle('blind');" %>
         <br/><%= image_tag "http://joelcogen.com/qr/img.php?u=#{configuration.file_path}", :size=>'100x100', :alt=>'qr-code', :id=>"qr_#{configuration.id}" %>
-        <script>jQuery('#qr_<%= configuration.id %>').hide()</script>
+        <script>$('#qr_<%= configuration.id %>').hide()</script>
       <% end %>
     </td>
   </tr>

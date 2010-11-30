@@ -1,18 +1,17 @@
 <script>
-	jQuery(function() {
-		jQuery( "#remove, #data, #system" ).sortable({
-			connectWith: ".apklist",
-			placeholder: "ui-state-default",
+	$(function() {
+		$('#remove, #data, #system').sortable({
+			connectWith: '.apklist',
+			placeholder: 'ui-state-default',
 			stop: function(event, ui) {
-			  var apk_id = jQuery(ui.item.context).attr('id');
-        var new_value = jQuery(ui.item.context).parent('ul').attr('id');
-			  console.log(apk_id + ':' + jQuery('#apk_' + apk_id).val() + '->' + new_value);
-			  jQuery('#apk_' + apk_id).val(new_value);
-			  console.log(apk_id + ':' + jQuery('#apk_' + apk_id).val() + '->' + new_value);
+			  var apk_id = $(ui.item.context).attr('id');
+        var new_value = $(ui.item.context).parent('ul').attr('id');
+			  console.log(apk_id + ':' + $('#apk_' + apk_id).val() + '->' + new_value);
+			  $('#apk_' + apk_id).val(new_value);
 		  }
 		}).disableSelection();
 
-		jQuery( "#radio" ).buttonset();
+		$('#radio').buttonset();
 	});
 </script>
 
@@ -41,9 +40,9 @@
   <h2>Applications</h2>
   <div id="radio">
     Mode:
-	  <input type="radio" id="radio1" name="radio" onClick="javascript:jQuery('.expert').css('display','none');" checked="checked" />
+	  <input type="radio" id="radio1" name="radio" onClick="javascript:$('.expert').css('display','none');" checked="checked" />
 	    <label for="radio1">Simple</label>
-	  <input type="radio" id="radio2" name="radio" onClick="javascript:jQuery('.expert').css('display','block');" />
+	  <input type="radio" id="radio2" name="radio" onClick="javascript:$('.expert').css('display','block');" />
 	    <label for="radio2">Expert</label>
   </div>
   <h4>Drag &amp; drop applications to install or remove!</h4>
