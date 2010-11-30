@@ -8,6 +8,7 @@
         var new_value = jQuery(ui.item.context).parent('ul').attr('id');
 			  console.log(apk_id + ':' + jQuery('#apk_' + apk_id).val() + '->' + new_value);
 			  jQuery('#apk_' + apk_id).val(new_value);
+			  console.log(apk_id + ':' + jQuery('#apk_' + apk_id).val() + '->' + new_value);
 		  }
 		}).disableSelection();
 
@@ -58,8 +59,9 @@
         <ul id="remove" class="apklist ui-corner-all">
           <% @extra_apks.sort_by {|a| a.name}.each do |apk| %>
             <li class="ui-state-highlight <%= apk.expert ? 'expert' : '' %>" id="<%= apk.id %>">
-              <%= apk.name %><br/><span class="note"><%= apk.description %></span></li>
-            <%= hidden_field 'apk', apk.id, :value=>'remove' %>
+              <%= apk.name %><br/><span class="note"><%= apk.description %></span>
+              <%= hidden_field 'apk', apk.id, :value=>'remove' %>
+            </li>
           <% end %>
         </ul>
       </td>
@@ -67,8 +69,9 @@
         <ul id="system" class="apklist ui-corner-all">
           <% @base_rom.apks.select {|a| a.location=='system'}.sort_by {|a| a.name}.each do |apk| %>
             <li class="ui-state-highlight <%= apk.expert ? 'expert' : '' %>" id="<%= apk.id %>">
-              <%= apk.name %><br/><span class="note"><%= apk.description %></span></li>
-            <%= hidden_field 'apk', apk.id, :value=>'system' %>
+              <%= apk.name %><br/><span class="note"><%= apk.description %></span>
+              <%= hidden_field 'apk', apk.id, :value=>'system' %>
+            </li>
           <% end %>
         </ul>
         <span class="note">If system partition is full, some applications will be moved to data</span>
@@ -78,8 +81,8 @@
           <% @base_rom.apks.select {|a| a.location=='data'}.sort_by {|a| a.name}.each do |apk| %>
             <li class="ui-state-highlight <%= apk.expert ? 'expert' : '' %>" id="<%= apk.id %>">
               <%= apk.name %><br/><span class="note"><%= apk.description %></span>
+              <%= hidden_field 'apk', apk.id, :value=>'data' %>
             </li>
-            <%= hidden_field 'apk', apk.id, :value=>'data' %>
           <% end %>
         </ul>
       </td>
