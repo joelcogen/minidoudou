@@ -10,6 +10,8 @@ Minidoudou::Application.routes.draw do
     resources :base_roms do
       resources :base_rom_packages
       resources :configurations
+      get 'purge_configs'
+      get 'purge_test_configs'
     end
   end
 

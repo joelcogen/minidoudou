@@ -103,5 +103,23 @@ class BaseRomsController < ApplicationController
       format.html { redirect_to(@device) }
     end
   end
+
+  def purge_configs
+    @base_rom = BaseRom.find(params[:base_rom_id])
+    if @base_rom.configurations.each &:destroy
+      redirect_to([@base_rom.device, @base_rom], :notice => 'Purged.')
+    else
+      redirect_to([@base_rom.device, @base_rom], :notice => 'An error prevented the purge.')
+    end
+  end
+
+  def purge_test_configs
+    @base_rom = BaseRom.find(params[:base_rom_id])
+    if @base_rom.configurations.select{|c| c.name.start_with? '_'}.each &:destroy
+      redirect_to([@base_rom.device, @base_rom], :notice => 'Purged (test).')
+    else
+      redirect_to([@base_rom.device, @base_rom], :notice => 'An error prevented the purge.')
+    end
+  end
 end
 
