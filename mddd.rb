@@ -45,13 +45,16 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   # Cleanup first to make sure we start nice
   system "rm -rf files/tmp/*"
 
+  # Extract data
   base_rom = config.base_rom
   device = base_rom.device
   log "Creating '#{config.name}' from '#{base_rom.name}' for '#{device.name}'"
 
+  # Extract Base ROM
   log "Extracting '#{base_rom.name}' from '#{base_rom.file_path}'"
   system "unzip -qo #{base_rom.file_path} -d files/tmp/" or raise "Can't unzip '#{base_rom.file_path}'"
 
+  # Add some prints to updater-script
   us_path = "files/tmp/META-INF/com/google/android/updater-script"
   us = "ui_print(\" \");\n"
   us << "ui_print(\"This ROM was created using Minidoudou [minidoudou.joelcogen.com]\");\n"
@@ -61,34 +64,32 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   us << "ui_print(\" \");\n"
   us << File.read(us_path) or raise "Can't read updater_script from base ROM"
   system "rm #{us_path}" or raise "Can't remove updater_script from base ROM"
-  # /data/app extraction
+  # Add /data/app extraction to updater-script
   us << "mount(\"MTD\", \"userdata\", \"/data\");"
   us << "package_extract_dir(\"data\", \"/data\");"
   us << "set_perm(1000, 1000, 0771, \"/data/app\");"
   us << "unmount(\"/data\");"
 
+  # Extract packages
   config.packages.each do |package|
     log "Extracting package '#{package.fullname}' from '#{package.file_path}'"
     system "unzip -qo #{package.file_path} -d files/tmp/" or raise "Can't unzip '#{package.file_path}'"
 
+    # Append updater-script
     if File.exist? us_path
       us << "\n" + File.read(us_path) or raise "Can't read updater_script from package"
       system "rm #{us_path}" or raise "Can't remove updater_script from package"
     end
   end
 
+  # Write final updater-script
   File.open(us_path, "w") { |f| f.puts us }
 
+  # Make sure /data/app exists
   File.mkpath "files/tmp/data/app" or raise "Can't create /data/app"
-  config.changes.each do |change|
-    # Check /system usage
-    #system_full = false
-    #system_used = `du -s files/tmp/system | awk '{print $1}'`.to_i
-    #package_size = `du -s #{package.file_path} | awk '{print $1}'`.to_i
-    #if system_used+package_size > device.system_size*1024
-    #  system_full = true
-    #end
 
+  # Apply changes
+  config.changes.each do |change|
     log change.explain.gsub(/<\/?strong>/, '')
     if change.destination == 'remove'
       # Removal
@@ -105,21 +106,37 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
     end
   end
 
+  # Check /system usage
+  system_used = `du -s files/tmp/system | awk '{print $1}'`.to_i
+  while system_used > device.system_size*1024
+    # Move a random package to /data
+    apk = Dir.entries('files/tmp/system/app/').select{|e| e.end_with?('.apk')}.first
+    raise "System full: no more APKs to move" if apk.nil?
+    log "System full: moving #{apk} to data"
+    File.move "files/tmp/system/app/#{apk}", "files/tmp/data/app/#{apk}" \
+      or raise "Can't move #{apk} from system to data"
+    # Recompute
+    system_used = `du -s files/tmp/system | awk '{print $1}'`.to_i
+  end
+
+  # Zip the result
   zipname = "MDD_#{device.name}_#{base_rom.name}_#{config.name}.zip".gsub(' ', '_').gsub(/[^[:alnum:]_.]/, '')
   log "Zipping as '#{zipname}'"
   system "cd files/tmp; zip -rq #{zipname}.unsigned *" or raise "Can't zip '#{zipname}'"
 
+  # Sign
   log "Signing"
-  #system "java -cp testsign.jar testsign files/tmp/#{zipname}.unsigned public/download/#{zipname}" or raise "Can't sign 'files/tmp/#{zipname}.unsigned' as 'public/download/#{zipname}'"
   system "java -cp testsign.jar testsign files/tmp/#{zipname}.unsigned files/tmp/#{zipname}" or raise "Can't sign 'files/tmp/#{zipname}.unsigned' as 'files/tmp/#{zipname}'"
 
+  # Upload to SendSpace
   log "Uploading"
-  file_path = ss_upload "files/tmp/#{zipname}"
+  file_path = "olol"#ss_upload "files/tmp/#{zipname}"
   raise "Error uploading to SendSpace" if file_path.nil?
 
+  # Cleanup
   system "rm -rf files/tmp/*" or raise "Can't empty tmp"
 
-  #config.file_path = "/download/#{zipname}"
+  # Write new data
   config.file_path = file_path
   config.save or raise "Can't save configuration #{config.id} to DB"
 
