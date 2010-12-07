@@ -1,22 +1,22 @@
 <script>
-	$(function() {
-		$('#remove, #data, #system').sortable({
-			connectWith: '.apklist',
-			placeholder: 'ui-state-default',
-			stop: function(event, ui) {
-			  var apk_id = $(ui.item.context).attr('id');
+  $(function() {
+    $('#remove, #data, #system').sortable({
+      connectWith: '.apklist',
+      placeholder: 'ui-state-default',
+      stop: function(event, ui) {
+        var apk_id = $(ui.item.context).attr('id');
         var new_value = $(ui.item.context).parent('ul').attr('id');
-			  console.log(apk_id + ':' + $('#apk_' + apk_id).val() + '->' + new_value);
-			  $('#apk_' + apk_id).val(new_value);
-		  }
-		}).disableSelection();
+        //console.log(apk_id + ':' + $('#apk_' + apk_id).val() + '->' + new_value);
+        $('#apk_' + apk_id).val(new_value);
+      }
+    }).disableSelection();
 
     $('li').mouseover(function() {
       $(this).css('cursor', 'pointer');
     });
 
-		$('#radio').buttonset();
-	});
+    $('#radio').buttonset();
+  });
 </script>
 
 <%= form_for([@base_rom.device, @base_rom, @configuration]) do |f| %>
@@ -44,10 +44,10 @@
   <h2>Applications</h2>
   <div id="radio">
     Mode:
-	  <input type="radio" id="radio1" name="radio" onClick="javascript:$('.expert').css('display','none');" checked="checked" />
-	    <label for="radio1">Simple</label>
-	  <input type="radio" id="radio2" name="radio" onClick="javascript:$('.expert').css('display','block');" />
-	    <label for="radio2">Expert</label>
+    <input type="radio" id="radio1" name="radio" onClick="javascript:$('.expert').css('display','none');" checked="checked" />
+      <label for="radio1">Simple</label>
+    <input type="radio" id="radio2" name="radio" onClick="javascript:$('.expert').css('display','block');" />
+      <label for="radio2">Expert</label>
   </div>
   <h4>Drag &amp; drop applications to install or remove!</h4>
 
