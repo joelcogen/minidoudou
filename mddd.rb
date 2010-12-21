@@ -130,7 +130,7 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
 
   # Upload to SendSpace
   log "Uploading"
-  file_path = "olol"#ss_upload "files/tmp/#{zipname}"
+  file_path = ss_upload "files/tmp/#{zipname}"
   raise "Error uploading to SendSpace" if file_path.nil?
 
   # Cleanup
