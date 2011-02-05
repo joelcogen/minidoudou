@@ -4,3 +4,4 @@ log/*.log
 tmp/**/*
 files/*
 public/download/*
+*.DS_Store
