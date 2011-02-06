@@ -89,7 +89,7 @@ Configuration.all.select {|c| c.file_path.nil?}.each do |config|
   File.mkpath "files/tmp/data/app" or raise "Can't create /data/app"
 
   # Apply changes
-  config.changes.sort { |c| c.destination=='remove' ? 0 : ( c.apk.base_rom.nil? ? 2 : 1 ) }.each do |change|
+  config.changes.sort_by { |c| c.destination=='remove' ? 0 : ( c.apk.base_rom.nil? ? 2 : 1 ) }.each do |change|
     log change.explain.gsub(/<\/?strong>/, '')
     if change.destination == 'remove'
       # Removal
