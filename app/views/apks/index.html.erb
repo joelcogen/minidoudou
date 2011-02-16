@@ -2,7 +2,7 @@
 APKs</h1>
 
 <ul>
-<% @apks.sort_by {|a| !a.deprecated}.each do |apk| %>
+<% @apks.sort_by {|a| a.deprecated ? 1 : 0}.each do |apk| %>
   <li>
     <strong><%= apk.deprecated ? "<s>".html_safe : "" %><%= link_to apk.name, apk %><%= apk.deprecated ? "</s>".html_safe : "" %></strong><br/>
     <%= apk.description %>
