@@ -60,8 +60,8 @@
     <tr>
       <td>
         <ul id="remove" class="apklist ui-corner-all">
-          <% @extra_apks.sort_by {|a| a.name}.each do |apk| %>
-            <li class="ui-state-highlight <%= apk.expert ? 'expert' : '' %>" id="<%= apk.id %>">
+          <% @extra_apks.select {|a| !a.deprecated}.sort_by {|a| a.name}.each do |apk| %>
+            <li class="ui-state-highlight" id="<%= apk.id %>">
               <%= apk.name %><br/><span class="note"><%= apk.description %></span>
               <%= hidden_field 'apk', apk.id, :value=>'remove' %>
             </li>
