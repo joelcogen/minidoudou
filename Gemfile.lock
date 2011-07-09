@@ -78,6 +78,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  devise
+  devise (= 1.4.2)
   rails (= 3.0.0)
   sqlite3-ruby
