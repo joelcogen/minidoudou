@@ -1,5 +1,5 @@
 class BaseRomsController < ApplicationController
-  before_filter :authenticate, :except => [:index, :show]
+  before_filter :authenticate_uploader!, :except => [:index, :show]
 
   # GET /base_roms
   # GET /base_roms.xml
@@ -43,6 +43,7 @@ class BaseRomsController < ApplicationController
   def create
     @device = Device.find(params[:device_id])
     @base_rom = BaseRom.new(params[:base_rom])
+    @base_rom.uploader = current_user
 
     # Save file
     file_path = DataFile.store(params[:upload])
@@ -119,6 +120,15 @@ class BaseRomsController < ApplicationController
       redirect_to([@base_rom.device, @base_rom], :notice => 'Purged (test).')
     else
       redirect_to([@base_rom.device, @base_rom], :notice => 'An error prevented the purge.')
+    end
+  end
+  
+protected
+  
+  def authenticate_uploader!
+    @base_rom = BaseRom.find(params[:id] ? params[:id] : params[:base_rom_id])
+    unless authenticate_user! && @base_rom.uploader == current_user
+      redirect_to([@base_rom.device, @base_rom], :notice => 'Only the ROM uploader can modify it')
     end
   end
 end

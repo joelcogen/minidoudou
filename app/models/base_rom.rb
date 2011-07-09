@@ -1,11 +1,13 @@
 class BaseRom < ActiveRecord::Base
   belongs_to :device
+  belongs_to :uploader, :class_name => "User"
   has_many :apks, :dependent => :destroy
   has_many :base_rom_packages
   has_many :packages, :through => :base_rom_packages
   has_many :configurations
 
-  validates_presence_of :name
+  validates :name, :presence => true
+  validates :uploader, :presence => true
 
   def find_apks
     # Unzip
