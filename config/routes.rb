@@ -1,5 +1,7 @@
 Minidoudou::Application.routes.draw do
 
+  devise_for :users
+
   resources :apks
 
   resources :packages
