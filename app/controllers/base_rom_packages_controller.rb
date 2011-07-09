@@ -1,5 +1,5 @@
 class BaseRomPackagesController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate_user!
 
   # GET /base_rom_packages/new
   # GET /base_rom_packages/new.xml

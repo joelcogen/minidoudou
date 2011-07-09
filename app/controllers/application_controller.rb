@@ -3,9 +3,9 @@ class ApplicationController < ActionController::Base
 
 protected
 
-  def authenticate
-    authenticate_or_request_with_http_basic do |username, password|
-      username == "joel" && password == "minidoudouIsDaBomb"
+  def authenticate_admin!
+    unless authenticate_user! && current_user.admin
+      redirect_to(request.referer, :notice => "Sorry, but you must be an admin to do that. Please ask an admin to make the change you need, or to promote you to admin.")
     end
   end
 end

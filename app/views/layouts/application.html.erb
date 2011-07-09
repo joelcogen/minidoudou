@@ -19,6 +19,14 @@
 
 <div id="content_top"></div>
 <div id="content">
+	<div id="login">
+		<% if user_signed_in? %>
+			Welcome, <%= link_to current_user.name, edit_user_registration_path %> | <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+		<% else%>
+			Want to upload a ROM? <%= link_to "Sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %>.
+		<% end %>
+	</div>
+	
   <%= yield %>
 </div>
 <div id="content_bottom"></div>
