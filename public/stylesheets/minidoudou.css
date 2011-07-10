@@ -167,6 +167,7 @@ table tr th {
  width: 780px;
  padding: 2px 5px;
  text-align: right;
+ display: none;
 }
 #admin a {
   color: #a00;

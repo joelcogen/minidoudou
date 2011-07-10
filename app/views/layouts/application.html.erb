@@ -9,6 +9,11 @@
   <%= javascript_include_tag 'rails-jquery' %>
   <%= csrf_meta_tag %>
   <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+  <% if current_user.present? %>
+  <style language="css">
+    #admin{display:block;}
+  </style>
+  <% end %>
 </head>
 <body>
 
@@ -23,7 +28,8 @@
 		<% if user_signed_in? %>
 			Welcome, <%= link_to current_user.name, edit_user_registration_path %> | <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
 		<% else%>
-			Want to upload a ROM? <%= link_to "Sign in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %>.
+			Want to upload a ROM?<br/>
+			<%= link_to "Login", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %>.
 		<% end %>
 	</div>
 	

@@ -1,10 +1,10 @@
 class BaseRomPackagesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :authenticate_uploader_or_admin!
 
   # GET /base_rom_packages/new
   # GET /base_rom_packages/new.xml
   def new
-    @base_rom = BaseRom.find(params[:base_rom_id])
     @base_rom_package = @base_rom.base_rom_packages.new
     @packages = Package.all.select {|p| !@base_rom.packages.include? p}
     @current_packages = @packages.select {|p| !p.old}
@@ -20,7 +20,6 @@ class BaseRomPackagesController < ApplicationController
   # POST /base_rom_packages.xml
   def create
     @device = Device.find(params[:device_id])
-    @base_rom = BaseRom.find(params[:base_rom_id])
     @base_rom_package = BaseRomPackage.new(params[:base_rom_package])
 
     respond_to do |format|
@@ -36,11 +35,19 @@ class BaseRomPackagesController < ApplicationController
   # DELETE /base_rom_packages/1.xml
   def destroy
     @base_rom_package = BaseRomPackage.find(params[:id])
-    @base_rom = BaseRom.find(params[:base_rom_id])
     @base_rom_package.destroy
 
     respond_to do |format|
       format.html { redirect_to([@base_rom.device, @base_rom]) }
+    end
+  end
+  
+protected
+
+  def authenticate_uploader_or_admin!
+    @base_rom = BaseRom.find(params[:base_rom_id])
+    unless current_user.owns_rom(@base_rom) || current_user.admin
+      redirect_to(@base_rom.device, :notice => 'Only the ROM uploader can modify its content')
     end
   end
 end

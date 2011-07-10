@@ -1,6 +1,6 @@
 class ApksController < ApplicationController
-  before_filter :authenticate_admin!, :except => [:index, :show]
-  before_filter :authenticate_user!, :only => [:index, :show]
+  before_filter :authenticate_user!
+  before_filter :authenticate_uploader_or_admin!, :except => [:index, :show]
 
   # GET /apks
   # GET /apks.xml
@@ -25,8 +25,6 @@ class ApksController < ApplicationController
   # GET /apks/new
   # GET /apks/new.xml
   def new
-    @apk = Apk.new
-
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -34,14 +32,11 @@ class ApksController < ApplicationController
 
   # GET /apks/1/edit
   def edit
-    @apk = Apk.find(params[:id])
   end
 
   # POST /apks
   # POST /apks.xml
   def create
-    @apk = Apk.new(params[:apk])
-
     # Save file
     file_path = DataFile.store(params[:upload])
     unless file_path
@@ -63,8 +58,6 @@ class ApksController < ApplicationController
   # PUT /apks/1
   # PUT /apks/1.xml
   def update
-    @apk = Apk.find(params[:id])
-
     # Save file
     if params[:upload]
       file_path = DataFile.store(params[:upload])
@@ -88,11 +81,21 @@ class ApksController < ApplicationController
   # DELETE /apks/1
   # DELETE /apks/1.xml
   def destroy
-    @apk = Apk.find(params[:id])
     @apk.destroy
 
     respond_to do |format|
       format.html { redirect_to(apks_url) }
+    end
+  end
+  
+protected
+
+  def authenticate_uploader_or_admin!
+    @apk = params[:id] ? Apk.find(params[:id]) : Apk.new
+    admin_ok = @apk.base_rom.nil? && current_user.admin
+    uploader_ok = @apk.base_rom.present? && current_user.owns_rom(@apk.base_rom)
+    unless admin_ok || uploader_ok
+      redirect_to(@apk, :notice => 'Only admins can modify extra APKs')
     end
   end
 end

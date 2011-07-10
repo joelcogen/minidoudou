@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :admin
   
   validates :name, :presence => true
+
+  def owns_rom base_rom
+    base_rom.uploader == self
+  end
 end

@@ -1,5 +1,5 @@
 class DevicesController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :authenticate_admin!, :except => [:index, :show]
 
   # GET /devices
   # GET /devices.xml
