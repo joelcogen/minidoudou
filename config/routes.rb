@@ -1,13 +1,15 @@
 Minidoudou::Application.routes.draw do
 
+  match "userlist", :to => "userlist#index"
+  match "userlist/:id/delete", :to => "userlist#delete", :via => "delete", :as => "user_delete"
+  match "userlist/:id/toggleadmin", :to => "userlist#toggleadmin", :as => "admin_toggle"
+
   devise_for :users
 
   resources :apks
 
   resources :packages
-
-  #resources :base_roms
-
+  
   resources :devices do
     resources :base_roms do
       resources :base_rom_packages
