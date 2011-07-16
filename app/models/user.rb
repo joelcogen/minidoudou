@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   
   has_many :base_roms, :foreign_key => 'uploader_id'
   
-  validates :name, :presence => true, :uniqueness => true
+  validates :name, :presence => true, :uniqueness => true, :length => {:minimum => 3}
   
   before_create :first_user_is_admin
 
