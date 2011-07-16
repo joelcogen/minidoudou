@@ -29,7 +29,7 @@
 			Welcome, <%= link_to current_user.name, edit_user_registration_path %> | <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
 		<% else%>
 			Want to upload a ROM?<br/>
-			<%= link_to "Login", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %>.
+			<%= link_to "Login", new_user_session_path %> or <%= link_to "register", new_user_registration_path %> as uploader.
 		<% end %>
 	</div>
 	
