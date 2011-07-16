@@ -1,6 +1,8 @@
 <h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
 Welcome to Minidoudou !</h1>
 
+<p id="notice"><%= notice %></p>
+
 <h3>Select your device to get started</h3>
 
 <ul>
@@ -17,6 +19,7 @@ Welcome to Minidoudou !</h1>
   <%= link_to 'New device', new_device_path %> |
   <%= link_to 'Packages', packages_path %> |
   <%= link_to 'APKs', apks_path %> |
+  <%= link_to 'Users', userlist_path %> |
   <%= link_to 'Log', 'log' %>
 </div>
 

@@ -1,0 +1,8 @@
+<li>
+  <% if user.admin %><strong><% end %>
+  <%= user.name %>
+  <% if user.admin %></strong><% end %>
+  (<%= user.base_roms.collect {|br| "#{br.name} for #{br.device.name}"}.join(",")%>)
+  <%= link_to 'Delete', user_delete_path(user), :method => :delete, :confirm => 'Are you sure?' %>
+  <%= link_to (user.admin ? "Kick" : "Make")+" admin", admin_toggle_path(user), :confirm => 'Are you sure?' %>
+</li>
