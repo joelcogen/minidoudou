@@ -7,7 +7,6 @@ class BaseRom < ActiveRecord::Base
   has_many :configurations
 
   validates :name, :presence => true
-  validates :uploader, :presence => true
 
   def find_apks
     # Unzip

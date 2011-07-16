@@ -5,7 +5,7 @@
       <ul>
       <% @base_roms.each do |base_rom| %>
         <li><%= link_to base_rom.name, device_base_rom_configurations_path(@device, base_rom) %>
-        <span class="uploader_name">(by <%= base_rom.uploader.name %>)</span></li>
+        <span class="uploader_name">(by <%= uploader_name_for base_rom %>)</span></li>
       <% end %>
       </ul>
     <% end %>

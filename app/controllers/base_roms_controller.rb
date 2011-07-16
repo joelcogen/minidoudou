@@ -1,6 +1,6 @@
 class BaseRomsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index]
-  before_filter :authenticate_uploader!, :except => [:index, :new, :create]
+  before_filter :authenticate_uploader_or_admin!, :except => [:index, :new, :create]
 
   # GET /base_roms
   # GET /base_roms.xml
@@ -119,9 +119,9 @@ class BaseRomsController < ApplicationController
   
 protected
   
-  def authenticate_uploader!
+  def authenticate_uploader_or_admin!
     @base_rom = BaseRom.find(params[:base_rom_id] ? params[:base_rom_id] : params[:id])
-    unless current_user.owns_rom(@base_rom)
+    unless current_user.owns_rom(@base_rom) || current_user.admin
       redirect_to(device_base_rom_configurations_path(@base_rom.device, @base_rom), :notice => 'Only the ROM uploader can modify it')
     end
   end
