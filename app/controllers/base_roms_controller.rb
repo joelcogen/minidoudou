@@ -1,5 +1,6 @@
 class BaseRomsController < ApplicationController
-  before_filter :authenticate, :except => [:index, :show]
+  before_filter :authenticate_user!, :except => [:index]
+  before_filter :authenticate_uploader_or_admin!, :except => [:index, :new, :create]
 
   # GET /base_roms
   # GET /base_roms.xml
@@ -14,8 +15,6 @@ class BaseRomsController < ApplicationController
   # GET /base_roms/1
   # GET /base_roms/1.xml
   def show
-    @base_rom = BaseRom.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
     end
@@ -34,7 +33,6 @@ class BaseRomsController < ApplicationController
 
   # GET /base_roms/1/edit
   def edit
-    @base_rom = BaseRom.find(params[:id])
     @device = Device.find(params[:device_id])
   end
 
@@ -43,6 +41,7 @@ class BaseRomsController < ApplicationController
   def create
     @device = Device.find(params[:device_id])
     @base_rom = BaseRom.new(params[:base_rom])
+    @base_rom.uploader = current_user
 
     # Save file
     file_path = DataFile.store(params[:upload])
@@ -66,7 +65,6 @@ class BaseRomsController < ApplicationController
   # PUT /base_roms/1
   # PUT /base_roms/1.xml
   def update
-    @base_rom = BaseRom.find(params[:id])
     @device = Device.find(params[:device_id])
 
     # Save file
@@ -95,7 +93,6 @@ class BaseRomsController < ApplicationController
   # DELETE /base_roms/1
   # DELETE /base_roms/1.xml
   def destroy
-    @base_rom = BaseRom.find(params[:id])
     @device = Device.find(params[:device_id])
     @base_rom.destroy
 
@@ -105,7 +102,6 @@ class BaseRomsController < ApplicationController
   end
 
   def purge_configs
-    @base_rom = BaseRom.find(params[:base_rom_id])
     if @base_rom.configurations.each &:destroy
       redirect_to([@base_rom.device, @base_rom], :notice => 'Purged.')
     else
@@ -114,11 +110,19 @@ class BaseRomsController < ApplicationController
   end
 
   def purge_test_configs
-    @base_rom = BaseRom.find(params[:base_rom_id])
     if @base_rom.configurations.select{|c| c.name.start_with? '_'}.each &:destroy
       redirect_to([@base_rom.device, @base_rom], :notice => 'Purged (test).')
     else
       redirect_to([@base_rom.device, @base_rom], :notice => 'An error prevented the purge.')
+    end
+  end
+  
+protected
+  
+  def authenticate_uploader_or_admin!
+    @base_rom = BaseRom.find(params[:base_rom_id] ? params[:base_rom_id] : params[:id])
+    unless current_user.owns_rom(@base_rom) || current_user.admin
+      redirect_to(device_base_rom_configurations_path(@base_rom.device, @base_rom), :notice => 'Only the ROM uploader can modify it')
     end
   end
 end

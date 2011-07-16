@@ -68,8 +68,7 @@ h1 {
   width: 780px;
   background: white url('images/content_bg.png') top center repeat-y;
   margin: 0 auto;
-  padding: 5px 10px;
-  padding-bottom: 15px;
+  padding: 20px 10px;
 }
 
 #footer {
@@ -119,7 +118,8 @@ table tr th {
 }
 
 #notice {
-  color: green;
+  color: #070;
+	font-style: italic;
 }
 
 .field_with_errors {
@@ -153,12 +153,21 @@ table tr th {
   list-style: square;
 }
 
-#admin {
+#login {
  position: absolute;
  top: 200px;
  width: 780px;
  padding: 2px 5px;
  text-align: right;
+}
+
+#admin {
+ position: absolute;
+ top: 220px;
+ width: 780px;
+ padding: 2px 5px;
+ text-align: right;
+ display: none;
 }
 #admin a {
   color: #a00;
@@ -205,3 +214,7 @@ table tr th {
   font-size: 10px;
 }
 
+.uploader_name {
+	font-style: italic;
+	font-size: 10px;
+}

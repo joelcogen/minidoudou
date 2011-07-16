@@ -1,5 +1,5 @@
 class PackagesController < ApplicationController
-  before_filter :authenticate, :except => [:index, :show]
+  before_filter :authenticate_user!
 
   # GET /packages
   # GET /packages.xml
@@ -90,7 +90,12 @@ class PackagesController < ApplicationController
   # DELETE /packages/1.xml
   def destroy
     @package = Package.find(params[:id])
-    @package.destroy
+    if current_user.admin
+      @package.destroy
+    else
+      @package.old = true
+      @package.save
+    end
 
     respond_to do |format|
       format.html { redirect_to(packages_url) }

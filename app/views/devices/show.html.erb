@@ -12,48 +12,18 @@
 <h3>Select a ROM to customize</h3>
 
 <div id="accordion">
-  <% base_roms = @device.base_roms.select{|r| !r.old && !r.dev} %>
-  <h3><a href="#">Current (<%= base_roms.count %>)</a></h3>
-  <div>
-    <% if base_roms.count == 0 %>
-      <p>No ROMs here yet</p>
-    <% else %>
-      <ul>
-      <% base_roms.each do |base_rom| %>
-        <li><%= link_to base_rom.name, device_base_rom_configurations_path(@device, base_rom) %></li>
-      <% end %>
-      </ul>
-    <% end %>
-  </div>
+  <% @base_roms = @device.base_roms.select{|r| !r.old && !r.dev} %>
+  <h3><a href="#">Current (<%= @base_roms.count %>)</a></h3>
+  <%= render :partial => 'base_rom' %>
 
-  <% base_roms = @device.base_roms.select{|r| r.old && !r.dev} %>
-  <h3><a href="#">Deprecated (<%= base_roms.count %>)</a></h3>
-  <div>
-    <% if base_roms.count == 0 %>
-      <p>No ROMs here yet</p>
-    <% else %>
-      <ul>
-      <% base_roms.each do |base_rom| %>
-        <li><%= link_to base_rom.name, device_base_rom_configurations_path(@device, base_rom) %></li>
-      <% end %>
-      </ul>
-    <% end %>
-  </div>
+  <% @base_roms = @device.base_roms.select{|r| r.old && !r.dev} %>
+  <h3><a href="#">Deprecated (<%= @base_roms.count %>)</a></h3>
+  <%= render :partial => 'base_rom' %>
 
-  <% base_roms = @device.base_roms.select{|r| r.dev} %>
-  <h3><a href="#">In development (<%= base_roms.count %>)</a></h3>
-  <div>
-    <span class="note">ROMs listed here should not be used unless you are the one working on it, might be buggy and even not working at all</span>
-    <% if base_roms.count == 0 %>
-      <p>No ROMs here yet</p>
-    <% else %>
-      <ul>
-      <% base_roms.each do |base_rom| %>
-        <li><%= link_to base_rom.name, device_base_rom_configurations_path(@device, base_rom) %></li>
-      <% end %>
-      </ul>
-    <% end %>
-  </div>
+
+  <% @base_roms = @device.base_roms.select{|r| r.dev} %>
+  <h3><a href="#">In development (<%= @base_roms.count %>)</a></h3>
+  <%= render :partial => 'base_rom' %>
 </div>
 
 <div id="admin">

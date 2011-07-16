@@ -28,8 +28,8 @@ Details</h1>
 <div id="admin">
   <%= link_to 'Edit info', edit_device_base_rom_path(@base_rom.device, @base_rom) %> |
   <%= link_to 'Add package', new_device_base_rom_base_rom_package_path(@base_rom.device, @base_rom) %> |
-  <%= link_to 'Purge configs', base_rom_purge_configs_path(@base_rom.device, @base_rom), :confirm => 'Sure? You might piss someone off...' %> |
-  <%= link_to 'Purge test configs', base_rom_purge_test_configs_path(@base_rom.device, @base_rom), :confirm => 'Sure?' %> |
+  <%= link_to 'Purge configs', device_base_rom_purge_configs_path(@base_rom.device, @base_rom), :confirm => 'Sure? You might piss someone off...' %> |
+  <%= link_to 'Purge test configs', device_base_rom_purge_test_configs_path(@base_rom.device, @base_rom), :confirm => 'Sure?' %> |
   <%= link_to 'Delete', [@base_rom.device, @base_rom], :method => 'DELETE', :confirm => 'OMG are you absolutely sure? I mean, you could mark it deprecated, but deleting? Really? REALLY really?' %>
 </div>
 

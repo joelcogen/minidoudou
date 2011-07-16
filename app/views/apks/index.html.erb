@@ -1,6 +1,8 @@
 <h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
 APKs</h1>
 
+<p id="notice"><%= notice %></p>
+
 <ul>
 <% @apks.sort_by {|a| a.deprecated ? 1 : 0}.each do |apk| %>
   <li>

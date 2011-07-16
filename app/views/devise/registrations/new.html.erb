@@ -1,0 +1,23 @@
+<h2>Register as uploader</h2>
+
+<p>Please note that signing up is useless if you just want to use the application. You only need to create an account to upload new ROMs.</p>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+	<p><%= f.label :name %><br />
+  <%= f.text_field :name %></p>
+
+  <p><%= f.label :email %><br />
+  <%= f.email_field :email %></p>
+
+  <p><%= f.label :password %><br />
+  <%= f.password_field :password %></p>
+
+  <p><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></p>
+
+  <p><%= f.submit "Register" %></p>
+<% end %>
+
+<%= render :partial => "devise/shared/links" %>
