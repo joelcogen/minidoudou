@@ -10,8 +10,16 @@ class User < ActiveRecord::Base
   has_many :base_roms, :foreign_key => 'uploader_id'
   
   validates :name, :presence => true, :uniqueness => true
+  
+  before_create :first_user_is_admin
 
   def owns_rom base_rom
     base_rom.uploader == self
+  end
+  
+protected
+  
+  def first_user_is_admin
+    self.admin = true unless User.any?
   end
 end
