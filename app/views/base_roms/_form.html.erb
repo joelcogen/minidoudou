@@ -16,7 +16,7 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label 'Website' %><br />
+    <%= f.label :url, 'Website' %><br />
     <%= f.text_field :url %>
   </div>
   <div class="field">
@@ -26,14 +26,14 @@
   </div>
 
   <div class="field">
-    <%= f.check_box :dev %> <%= f.label 'In development' %>
+    <%= f.check_box :dev %> <%= f.label :dev, 'In development' %>
   </div>
   <div class="field">
-    <%= f.check_box :old %> <%= f.label 'Deprecated' %>
+    <%= f.check_box :old %> <%= f.label :old, 'Deprecated' %>
   </div>
 
   <div class="field">
-    <%= f.label 'Info for customers' %><br />
+    <%= f.label :info, 'Info for downloaders' %><br />
     <%= f.text_area :info %>
   </div>
 

@@ -42,7 +42,7 @@ class ConfigurationsController < ApplicationController
     @configuration.base_rom = @base_rom
 
     # Add packages
-    packages = params[:packages]
+    packages = params[:packages] || []
     packages.each do |package|
       package_id = package.first
       package_selected = package.last
