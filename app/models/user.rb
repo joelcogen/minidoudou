@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   
   has_many :base_roms, :foreign_key => 'uploader_id'
   
-  validates :name, :presence => true
+  validates :name, :presence => true, :uniqueness => true
 
   def owns_rom base_rom
     base_rom.uploader == self
