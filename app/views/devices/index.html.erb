@@ -1,9 +1,9 @@
-<h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
-Welcome to Minidoudou !</h1>
+<% content_for :navbar do %>
+  <%= link_to image_tag('home.png'), '/' %> <%= image_tag 'nav_sep.png' %>
+  Welcome to Minidoudou !
+<% end %>
 
-<p id="notice"><%= notice %></p>
-
-<h3>Select your device to get started</h3>
+<h2>Select your device to get started</h2>
 
 <ul>
 <% @devices.each do |device| %>
@@ -15,11 +15,10 @@ Welcome to Minidoudou !</h1>
 <p>Join me on <a href="http://forum.xda-developers.com/showthread.php?t=834868">XDA developers</a> to give your opinion and discuss features!</p>
 <p>You can check out the source code and report bugs on <a href="https://github.com/joelcogen/minidoudou">GitHub</a>.</p>
 
-<div id="admin">
+<% content_for :admin do %>
   <%= link_to 'New device', new_device_path %> |
   <%= link_to 'Packages', packages_path %> |
   <%= link_to 'APKs', apks_path %> |
   <%= link_to 'Users', userlist_path %> |
   <%= link_to 'Log', 'log' %>
-</div>
-
+<% end %>

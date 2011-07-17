@@ -12,16 +12,6 @@ class ConfigurationsController < ApplicationController
     end
   end
 
-  # GET /configurations/1
-  # GET /configurations/1.xml
-  def show
-    @configuration = Configuration.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-    end
-  end
-
   # GET /configurations/new
   # GET /configurations/new.xml
   def new
@@ -71,17 +61,6 @@ class ConfigurationsController < ApplicationController
         @extra_apks = Apk.all.select {|a| a.base_rom.nil?}
         format.html { render :action => "new" }
       end
-    end
-  end
-
-  # DELETE /configurations/1
-  # DELETE /configurations/1.xml
-  def destroy
-    @configuration = Configuration.find(params[:id])
-    @configuration.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(configurations_url) }
     end
   end
 end

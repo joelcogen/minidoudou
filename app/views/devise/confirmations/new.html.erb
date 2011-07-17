@@ -1,3 +1,8 @@
+<% content_for :navbar do %>
+  <%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
+  Users
+<% end %>
+
 <h2>Resend confirmation instructions</h2>
 
 <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>

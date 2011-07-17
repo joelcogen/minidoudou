@@ -9,43 +9,46 @@
   <%= javascript_include_tag 'rails-jquery' %>
   <%= csrf_meta_tag %>
   <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-  <% if current_user.present? %>
-  <style language="css">
-    #admin{display:block;}
-  </style>
-  <% end %>
 </head>
 <body>
 
 <div id="banner"></div>
 
-<div id="navbar"></div>
+<h1>
+  <%= yield :navbar %>
+</h1>
 <div id="nav_bottom"></div>
 
 <div id="content_top"></div>
 <div id="content">
-	<div id="login">
-		<% if user_signed_in? %>
-			Welcome, <%= link_to current_user.name, edit_user_registration_path %> | <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-		<% else%>
-			Want to upload a ROM?<br/>
-			<%= link_to "Login", new_user_session_path %> or <%= link_to "register", new_user_registration_path %> as uploader.
-		<% end %>
-	</div>
-	
+  <div id="login">
+  	<% if user_signed_in? %>
+  		Welcome, <%= link_to current_user.name, edit_user_registration_path %> | <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+  	<% else%>
+  		Want to upload a ROM?<br/>
+  		<%= link_to "Login", new_user_session_path %> or <%= link_to "register", new_user_registration_path %> as uploader.
+  	<% end %>
+    <% if current_user.present? %>
+      <div id="admin">
+        <%= yield :admin %>
+      </div>
+    <% end %>
+  </div>
+  
+  <% if notice.present? %>
+    <p id="notice"><%= notice %></p>
+  <% end %>
+  
   <%= yield %>
 </div>
 <div id="content_bottom"></div>
 
 <div id="footer">
-  This website is made available in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. By installing software downloaded from this website on your phone, you are probably voiding the manufacturer's warranty. YOU HAVE BEEN WARNED.
+  <p>This website is made available in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. By installing software downloaded from this website on your phone, you are probably voiding the manufacturer's warranty. YOU HAVE BEEN WARNED.</p>
+  <p>Created and hosted by <a href="http://joelcogen.com" target="_blank">Joel Cogen</a> -
+     <a href="http://forum.xda-developers.com/showthread.php?t=834868" target="_blank">Discuss features</a> -
+     <a href="https://github.com/joelcogen/minidoudou/issues" target="_blank">Report bug</a></p>
 </div>
-
-<!-- Move the nav text to the nav area -->
-<script type="text/javascript">
-  document.getElementById('navbar').innerHTML = document.getElementsByTagName('h1')[0].innerHTML;
-  document.getElementsByTagName('h1')[0].innerHTML = '';
-</script>
 
 <!-- Ads -->
 <div class="adsense" id="ad_left">
@@ -71,8 +74,7 @@
   <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 </div>
 
-<!-- Center the ads vertically and
-     hide the right ad if we lack horizontal space -->
+<!-- Center the ads vertically and hide the right ad if we lack horizontal space -->
 <script type="text/javascript">
   if(jQuery(window).height()>610) {
     var topspace = (jQuery(window).height() - 600) / 2;

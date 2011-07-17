@@ -1,7 +1,7 @@
-<h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
-Users</h1>
-
-<p id="notice"><%= notice %></p>
+<% content_for :navbar do %>
+  <%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
+  Users
+<% end %>
 
 <ul>
   <%= render :partial => "user", :collection => @users %>

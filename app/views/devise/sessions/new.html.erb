@@ -1,3 +1,8 @@
+<% content_for :navbar do %>
+  <%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
+  Login
+<% end %>
+
 <h2>Uploader login</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>

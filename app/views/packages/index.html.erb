@@ -1,5 +1,7 @@
-<h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
-Packages</h1>
+<% content_for :navbar do %>
+  <%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
+  Packages
+<% end %>
 
 <ul>
 <% @current_packages.each do |package| %>
@@ -15,7 +17,6 @@ Packages</h1>
 <% end %>
 </ul>
 
-<div id="admin">
+<% content_for :admin do %>
   <%= link_to 'New Package', new_package_path %>
-</div>
-
+<% end %>

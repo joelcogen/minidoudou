@@ -1,7 +1,7 @@
-<h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
-APKs</h1>
-
-<p id="notice"><%= notice %></p>
+<% content_for :navbar do %>
+  <%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
+  APKs
+<% end %>
 
 <ul>
 <% @apks.sort_by {|a| a.deprecated ? 1 : 0}.each do |apk| %>
@@ -12,7 +12,7 @@ APKs</h1>
 <% end %>
 </ul>
 
-<div id="admin">
+<% content_for :admin do %>
   <%= link_to 'New APK', new_apk_path %>
-</div>
+<% end %>
 

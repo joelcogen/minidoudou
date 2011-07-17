@@ -1,15 +1,15 @@
-<h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
-<%= @device.name %></h1>
+<% content_for :navbar do %>
+  <%= link_to image_tag('home.png'), '/' %> <%= image_tag 'nav_sep.png' %>
+  <%= @device.name %>
+<% end %>
 
-<p id="notice"><%= notice %></p>
-
-<script>
+<script language="javascript">
   $(function() {
 	  $('#accordion').accordion();
   });
 </script>
 
-<h3>Select a ROM to customize</h3>
+<h2>Select a ROM to customize</h2>
 
 <div id="accordion">
   <% @base_roms = @device.base_roms.select{|r| !r.old && !r.dev} %>
@@ -26,7 +26,7 @@
   <%= render :partial => 'base_rom' %>
 </div>
 
-<div id="admin">
+<% content_for :admin do %>
   <%= link_to 'Edit device', edit_device_path(@device) %> | <%= link_to 'New ROM', new_device_base_rom_path(@device) %>
-</div>
+<% end %>
 

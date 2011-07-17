@@ -2,16 +2,6 @@ class BaseRomsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index]
   before_filter :authenticate_uploader_or_admin!, :except => [:index, :new, :create]
 
-  # GET /base_roms
-  # GET /base_roms.xml
-  def index
-    @base_roms = BaseRom.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-    end
-  end
-
   # GET /base_roms/1
   # GET /base_roms/1.xml
   def show

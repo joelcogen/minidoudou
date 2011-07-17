@@ -1,8 +1,8 @@
-<h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
-<%= link_to 'APKs', apks_path %> <%= image_tag 'nav_sep.png' %>
-<%= @apk.name %></h1>
-
-<p id="notice"><%= notice %></p>
+<% content_for :navbar do %>
+  <%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
+  <%= link_to 'APKs', apks_path %> <%= image_tag 'nav_sep.png' %>
+  <%= @apk.name %>
+<% end %>
 
 <p>
   <b>Base rom:</b>
@@ -29,8 +29,7 @@
   <%= @apk.deprecated %>
 </p>
 
-<div id="admin">
+<% content_for :admin do %>
   <%= link_to 'Edit', edit_apk_path(@apk) %> |
   <%= link_to 'Delete', @apk, :confirm => 'Really?', :method => :delete %>
-</div>
-
+<% end %>

@@ -1,20 +1,26 @@
-<h1><%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
-<%= link_to @base_rom.device.name, @base_rom.device %> <%= image_tag 'nav_sep.png' %>
-<%= @base_rom.name %></h1>
+<% content_for :navbar do %>
+  <%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
+  <%= link_to @base_rom.device.name, @base_rom.device %> <%= image_tag 'nav_sep.png' %>
+  <%= @base_rom.name %>
+<% end %>
 
-<p id="notice"><%= notice %></p>
+<p style="margin-top: 0;"><%= @base_rom.info.split("\n").join("<br/>").html_safe %></p>
 
-<p><%= @base_rom.info.split("\n").join("<br/>").html_safe %></p>
+<script language="javascript">
+  $(function() {
+    $('.button').button();
+  });
+</script>
+<p><%= link_to "Customize!", new_device_base_rom_configuration_path(@base_rom.device, @base_rom), :class => 'button' %></p>
 
-<h3><%= link_to 'Let\'s get started!', new_device_base_rom_configuration_path(@base_rom.device, @base_rom) %></h3>
-
-<h2>Downloads</h2>
+<% if @configurations.any? %>
+<h3>Downloads</h3>
 
 <table>
   <tr>
     <th>Name</th>
     <th>Status</th>
-    <th>Changes</th>
+    <th>Customization</th>
     <th></th>
   </tr>
 
@@ -33,21 +39,21 @@
           <%= configuration.packages.collect {|p| "<li>Install <strong>#{p.fullname}</strong></li>"}.join().html_safe %>
           <%= configuration.changes.collect {|c| "<li>#{c.explain}</li>"}.join().html_safe %>
         </ul>
-        <script>$('#packages_<%= configuration.id %>').hide()</script>
+        <script language="javascript">$('#packages_<%= configuration.id %>').hide()</script>
       <% end %>
     </td>
     <td>
       <% unless configuration.file_path.nil? %>
         <%= link_to 'Download', configuration.file_path, :target=>:blank %>&nbsp;|&nbsp;<%= link_to 'QR', "javascript:", :onClick => "javascript: $('#qr_#{configuration.id}').toggle('blind');" %>
         <br/><%= image_tag "http://joelcogen.com/qr/img.php?u=#{configuration.file_path}", :size=>'100x100', :alt=>'qr-code', :id=>"qr_#{configuration.id}" %>
-        <script>$('#qr_<%= configuration.id %>').hide()</script>
+        <script language="javascript">$('#qr_<%= configuration.id %>').hide()</script>
       <% end %>
     </td>
   </tr>
 <% end %>
 </table>
+<% end %>
 
-<div id="admin">
+<% content_for :admin do %>
   <%= link_to 'Edit ROM', [@base_rom.device, @base_rom] %>
-</div>
-
+<% end %>
