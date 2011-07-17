@@ -3,7 +3,19 @@
   Account
 <% end %>
 
-<h2>Edit your account</h2>
+<h2>Your ROMs</h2>
+
+<ul>
+<% resource.base_roms.each do |br| %>
+  <li><%= link_to device_base_rom_path(br.device, br), br.name %> for <%= br.device.name %></li>
+<% end %>
+<% if resource.base_roms.empty? %>
+  <li>You didn't upload anything yet</li>
+<% end %>
+</ul>
+
+
+<br/><h2>Edit your account</h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
@@ -26,7 +38,8 @@
   <p><%= f.submit "Update" %></p>
 <% end %>
 
-<h3>Cancel my account</h3>
+
+<br/><h2>Cancel your account</h2>
 
 <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
 

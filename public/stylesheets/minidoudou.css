@@ -137,8 +137,13 @@ table tr th {
 }
 
 #notice {
-  color: #070;
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid black;
+  color: black; /*#070*/
 	font-style: italic;
+	background: #ffb;
 }
 
 .field_with_errors {
