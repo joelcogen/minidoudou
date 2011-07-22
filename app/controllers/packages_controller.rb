@@ -1,10 +1,10 @@
 class PackagesController < ApplicationController
-  before_filter :authenticate_user!
+  load_and_authorize_resource
 
   # GET /packages
   # GET /packages.xml
   def index
-    @packages = Package.all.sort_by {|p| p.name}
+    @packages = @packages.sort_by {|p| p.name}
     @current_packages = @packages.select {|p| !p.old}
     @old_packages = @packages.select {|p| p.old}
 
@@ -16,8 +16,6 @@ class PackagesController < ApplicationController
   # GET /packages/1
   # GET /packages/1.xml
   def show
-    @package = Package.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
     end
@@ -26,8 +24,6 @@ class PackagesController < ApplicationController
   # GET /packages/new
   # GET /packages/new.xml
   def new
-    @package = Package.new
-
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -35,14 +31,11 @@ class PackagesController < ApplicationController
 
   # GET /packages/1/edit
   def edit
-    @package = Package.find(params[:id])
   end
 
   # POST /packages
   # POST /packages.xml
   def create
-    @package = Package.new(params[:package])
-
     # Save file
     file_path = DataFile.store(params[:upload])
     unless file_path
@@ -64,8 +57,6 @@ class PackagesController < ApplicationController
   # PUT /packages/1
   # PUT /packages/1.xml
   def update
-    @package = Package.find(params[:id])
-
     # Save file
     if params[:upload]
       file_path = DataFile.store(params[:upload])
@@ -89,7 +80,6 @@ class PackagesController < ApplicationController
   # DELETE /packages/1
   # DELETE /packages/1.xml
   def destroy
-    @package = Package.find(params[:id])
     if current_user.admin
       @package.destroy
     else

@@ -1,15 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
-protected
-
-  def authenticate_admin!
-    authenticate_user! if current_user.nil?
-    unless current_user.admin
-      redirect_url = request.referer
-      redirect_url = root_path if request.url == redirect_url
-      redirect_to(redirect_url, :notice => "Sorry, but you must be an admin to do that. Please ask an admin to make the change you need, or to promote you to admin.")
-    end
+  
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to(root_path, :notice => 'Sorry, but you cannot do that. If you would like to, or think you should, please contact an admin on <a href="http://forum.xda-developers.com/showthread.php?t=834868" target="_blank">XDA</a>.')
   end
 end
 

@@ -1,6 +1,6 @@
 class BaseRomsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index]
-  before_filter :authenticate_uploader_or_admin!, :except => [:index, :new, :create]
+  before_filter :load_ressource, :except => [:new, :create]
+  authorize_resource
 
   # GET /base_roms/1
   # GET /base_roms/1.xml
@@ -14,7 +14,7 @@ class BaseRomsController < ApplicationController
   # GET /base_roms/new.xml
   def new
     @device = Device.find(params[:device_id])
-    @base_rom = @device.base_roms.new
+    @base_rom = @device.base_roms.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,7 +43,7 @@ class BaseRomsController < ApplicationController
     @base_rom.file_path = file_path
 
     respond_to do |format|
-      if @device.base_roms << @base_rom
+      if @base_rom.save
         @base_rom.find_apks
         format.html { redirect_to([@device, @base_rom], :notice => 'Base rom was successfully created.') }
       else
@@ -109,11 +109,8 @@ class BaseRomsController < ApplicationController
   
 protected
   
-  def authenticate_uploader_or_admin!
+  def load_ressource
     @base_rom = BaseRom.find(params[:base_rom_id] ? params[:base_rom_id] : params[:id])
-    unless current_user.owns_rom(@base_rom) || current_user.admin
-      redirect_to(device_base_rom_configurations_path(@base_rom.device, @base_rom), :notice => 'Only the ROM uploader can modify it')
-    end
   end
 end
 

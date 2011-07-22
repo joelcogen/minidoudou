@@ -1,12 +1,13 @@
 class ApksController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authenticate_uploader_or_admin!, :except => [:index, :show]
+  load_and_authorize_resource :except => :index
 
   # GET /apks
   # GET /apks.xml
   def index
-    @apks = Apk.all.select {|a| a.base_rom.nil?}
-
+    # CanCan doesn't load @apks here for some reason (it's got something to do with
+    # the block in ability.rb, but I don't know what)
+    @apks = Apk.find(:all, :conditions => {:base_rom_id => nil})
+    
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -15,8 +16,6 @@ class ApksController < ApplicationController
   # GET /apks/1
   # GET /apks/1.xml
   def show
-    @apk = Apk.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
     end
@@ -85,17 +84,6 @@ class ApksController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(apks_url) }
-    end
-  end
-  
-protected
-
-  def authenticate_uploader_or_admin!
-    @apk = params[:id] ? Apk.find(params[:id]) : Apk.new
-    admin_ok = @apk.base_rom.nil? && current_user.admin
-    uploader_ok = @apk.base_rom.present? && current_user.owns_rom(@apk.base_rom)
-    unless admin_ok || uploader_ok
-      redirect_to(@apk, :notice => 'Only admins can modify extra APKs')
     end
   end
 end

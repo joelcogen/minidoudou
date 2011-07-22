@@ -16,9 +16,13 @@
 <p>You can check out the source code and report bugs on <a href="https://github.com/joelcogen/minidoudou">GitHub</a>.</p>
 
 <% content_for :admin do %>
-  <%= link_to 'New device', new_device_path %> |
+  <% if can? :create, :device %>
+    <%= link_to 'New device', new_device_path %> |
+  <% end %>
   <%= link_to 'Packages', packages_path %> |
   <%= link_to 'APKs', apks_path %> |
-  <%= link_to 'Users', userlist_path %> |
+  <% if can? :manage, :user %>
+    <%= link_to 'Users', userlist_path %> |
+  <% end %>
   <%= link_to 'Log', 'log' %>
 <% end %>

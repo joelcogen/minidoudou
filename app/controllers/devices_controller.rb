@@ -1,11 +1,9 @@
 class DevicesController < ApplicationController
-  before_filter :authenticate_admin!, :except => [:index, :show]
+  load_and_authorize_resource
 
   # GET /devices
   # GET /devices.xml
   def index
-    @devices = Device.all
-
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -14,8 +12,6 @@ class DevicesController < ApplicationController
   # GET /devices/1
   # GET /devices/1.xml
   def show
-    @device = Device.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
     end
@@ -24,8 +20,6 @@ class DevicesController < ApplicationController
   # GET /devices/new
   # GET /devices/new.xml
   def new
-    @device = Device.new
-
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -33,14 +27,11 @@ class DevicesController < ApplicationController
 
   # GET /devices/1/edit
   def edit
-    @device = Device.find(params[:id])
   end
 
   # POST /devices
   # POST /devices.xml
   def create
-    @device = Device.new(params[:device])
-
     respond_to do |format|
       if @device.save
         format.html { redirect_to(@device, :notice => 'Device was successfully created.') }
@@ -53,8 +44,6 @@ class DevicesController < ApplicationController
   # PUT /devices/1
   # PUT /devices/1.xml
   def update
-    @device = Device.find(params[:id])
-
     respond_to do |format|
       if @device.update_attributes(params[:device])
         format.html { redirect_to(@device, :notice => 'Device was successfully updated.') }
@@ -67,7 +56,6 @@ class DevicesController < ApplicationController
   # DELETE /devices/1
   # DELETE /devices/1.xml
   def destroy
-    @device = Device.find(params[:id])
     @device.destroy
 
     respond_to do |format|

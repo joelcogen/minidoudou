@@ -1,6 +1,11 @@
 <% content_for :navbar do %>
   <%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
-  <%= link_to 'APKs', apks_path %> <%= image_tag 'nav_sep.png' %>
+  <% if @apk.base_rom.present? %>
+    <%= link_to @apk.base_rom.device.name, @apk.base_rom.device %> <%= image_tag 'nav_sep.png' %>
+    <%= link_to @apk.base_rom.name, [@apk.base_rom.device, @apk.base_rom] %> <%= image_tag 'nav_sep.png' %>
+  <% else %>
+    <%= link_to 'APKs', apks_path %> <%= image_tag 'nav_sep.png' %>
+  <% end %>
   <%= link_to @apk.name, @apk %> <%= image_tag 'nav_sep.png' %>
   Edit
 <% end %>

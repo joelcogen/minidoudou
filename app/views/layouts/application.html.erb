@@ -28,7 +28,7 @@
   		Want to upload a ROM?<br/>
   		<%= link_to "Login", new_user_session_path %> or <%= link_to "register", new_user_registration_path %> as uploader.
   	<% end %>
-    <% if current_user.present? %>
+    <% if user_signed_in? %>
       <div id="admin">
         <%= yield :admin %>
       </div>
@@ -36,7 +36,7 @@
   </div>
   
   <% if notice.present? %>
-    <p id="notice"><%= notice %></p>
+    <p id="notice"><%= notice.html_safe %></p>
   <% end %>
   
   <%= yield %>

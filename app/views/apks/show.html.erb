@@ -1,7 +1,12 @@
 <% content_for :navbar do %>
   <%= link_to image_tag('home.png'), '/' %></a> <%= image_tag 'nav_sep.png' %>
-  <%= link_to 'APKs', apks_path %> <%= image_tag 'nav_sep.png' %>
-  <%= @apk.name %>
+  <% if @apk.base_rom.present? %>
+    <%= link_to @apk.base_rom.device.name, @apk.base_rom.device %> <%= image_tag 'nav_sep.png' %>
+    <%= link_to @apk.base_rom.name, [@apk.base_rom.device, @apk.base_rom] %> <%= image_tag 'nav_sep.png' %>
+  <% else %>
+    <%= link_to 'APKs', apks_path %> <%= image_tag 'nav_sep.png' %>
+  <% end %>
+  <%= link_to @apk.name, @apk %>
 <% end %>
 
 <p>
@@ -25,11 +30,16 @@
 </p>
 
 <p>
+  <b>Expert:</b>
+  <%= yes_no @apk.expert %>
+</p>
+
+<p>
   <b>Deprecated:</b>
-  <%= @apk.deprecated %>
+  <%= yes_no @apk.deprecated %>
 </p>
 
 <% content_for :admin do %>
   <%= link_to 'Edit', edit_apk_path(@apk) %> |
   <%= link_to 'Delete', @apk, :confirm => 'Really?', :method => :delete %>
-<% end %>
+<% end if can? :manage, @apk %>

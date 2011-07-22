@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   before_create :first_user_is_admin
 
   def owns_rom base_rom
-    base_rom.uploader == self
+    base_rom.present? && base_rom.uploader == self
   end
   
 protected

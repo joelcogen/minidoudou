@@ -56,4 +56,4 @@
 
 <% content_for :admin do %>
   <%= link_to 'Edit ROM', [@base_rom.device, @base_rom] %>
-<% end %>
+<% end if can? :edit, @base_rom %>

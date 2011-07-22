@@ -1,11 +1,11 @@
 class UserlistController < ApplicationController
-  before_filter :authenticate_admin!
-  
   def index
+    authorize! :manage, :user
     @users = User.all.sort_by {|u| u.admin ? 0 : 1 }
   end
 
   def delete
+    authorize! :manage, :user
     @user = User.find(params[:id])
     if @user == current_user
       redirect_to userlist_path, :notice => "Suicidal much?"
@@ -16,6 +16,7 @@ class UserlistController < ApplicationController
   end
 
   def toggleadmin
+    authorize! :manage, :user
     @user = User.find(params[:id])
     if @user == current_user
       redirect_to userlist_path, :notice => "Nope, bad idea"

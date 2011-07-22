@@ -27,6 +27,9 @@
 </div>
 
 <% content_for :admin do %>
-  <%= link_to 'Edit device', edit_device_path(@device) %> | <%= link_to 'New ROM', new_device_base_rom_path(@device) %>
+  <% if can? :edit, @device %>
+    <%= link_to 'Edit device', edit_device_path(@device) %> |
+  <% end %>
+  <%= link_to 'New ROM', new_device_base_rom_path(@device) %>
 <% end %>
 

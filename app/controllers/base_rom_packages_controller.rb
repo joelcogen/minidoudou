@@ -1,11 +1,10 @@
 class BaseRomPackagesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authenticate_uploader_or_admin!
+  before_filter :load_and_authorize_resource
 
   # GET /base_rom_packages/new
   # GET /base_rom_packages/new.xml
   def new
-    @base_rom_package = @base_rom.base_rom_packages.new
+    @base_rom_package = @base_rom.base_rom_packages.build
     @packages = Package.all.select {|p| !@base_rom.packages.include? p}
     @current_packages = @packages.select {|p| !p.old}
     @old_packages = @packages.select {|p| p.old}
@@ -23,7 +22,7 @@ class BaseRomPackagesController < ApplicationController
     @base_rom_package = BaseRomPackage.new(params[:base_rom_package])
 
     respond_to do |format|
-      if @base_rom.base_rom_packages << @base_rom_package
+      if @base_rom_package.save
         format.html { redirect_to([@device, @base_rom], :notice => 'Package added to Base ROM.') }
       else
         format.html { render :action => "new" }
@@ -44,11 +43,9 @@ class BaseRomPackagesController < ApplicationController
   
 protected
 
-  def authenticate_uploader_or_admin!
+  def load_and_authorize_resource
     @base_rom = BaseRom.find(params[:base_rom_id])
-    unless current_user.owns_rom(@base_rom) || current_user.admin
-      redirect_to(@base_rom.device, :notice => 'Only the ROM uploader can modify its content')
-    end
+    authorize! :manage, @base_rom
   end
 end
 
