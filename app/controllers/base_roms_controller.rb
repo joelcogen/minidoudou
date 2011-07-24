@@ -15,6 +15,7 @@ class BaseRomsController < ApplicationController
   def new
     @device = Device.find(params[:device_id])
     @base_rom = @device.base_roms.build
+    @base_rom.dev = true
 
     respond_to do |format|
       format.html # new.html.erb

@@ -12,6 +12,10 @@ class DevicesController < ApplicationController
   # GET /devices/1
   # GET /devices/1.xml
   def show
+    @current_base_roms = @device.base_roms.select{|br| !br.old && !br.dev}
+    @deprecated_base_roms = @device.base_roms.select{|br| br.old && !br.dev}
+    @dev_base_roms = @device.base_roms.select{|br| br.dev && current_user.owns_rom(br)}
+    
     respond_to do |format|
       format.html # show.html.erb
     end
