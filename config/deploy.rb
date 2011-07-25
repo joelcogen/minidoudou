@@ -12,11 +12,19 @@ role :web, "joelcogen.com"
 role :app, "joelcogen.com"
 role :db,  "joelcogen.com", :primary => true
 
+after "deploy:finalize_update", "deploy:config"
+
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
   task :start do ; end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+end
+
+namespace :deploy do
+  task :config do
+    run "ln -s #{shared_path}/config/database.yml #{release_path}/config/"
   end
 end
