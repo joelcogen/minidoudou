@@ -5,3 +5,5 @@ tmp/**/*
 files/*
 public/download/*
 *.DS_Store
+config/database.yml
+Gemfile.lock
