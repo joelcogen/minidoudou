@@ -1,7 +1,11 @@
 require 'rubygems'
 
-Gem.path.push "/opt/local/lib/ruby/gems/1.8"
-Gem::Specification.find_by_name('bundler').activate
+begin
+  require 'bundler'
+rescue
+  Gem.path.push "/opt/local/lib/ruby/gems/1.8"
+  Gem::Specification.find_by_name('bundler').activate
+end
 
 # Set up gems listed in the Gemfile.
 gemfile = File.expand_path('../../Gemfile', __FILE__)
