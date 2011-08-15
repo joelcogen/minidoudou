@@ -8,9 +8,11 @@ gem 'whenever', '0.6.8', :require => false
 gem 'devise', '1.4.2'
 gem 'cancan', '1.6.5'
 
-# Deploy with Capistrano
-gem 'capistrano'
-gem 'capistrano_colors'
+group :development do
+# Dep  loy with Capistrano
+  gem 'capistrano'
+  gem 'capistrano_colors'
+end
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

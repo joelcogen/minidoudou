@@ -16,18 +16,24 @@ role :app, "joelcogen.com"
 role :db,  "joelcogen.com", :primary => true
 
 after "deploy:finalize_update", "deploy:config"
+after "deploy:finalize_update", "deploy:bundle"
 
-# If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
   task :start do ; end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+    run "#{sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
 
 namespace :deploy do
+  desc "Create link to database.yml in current"
   task :config do
     run "ln -s #{shared_path}/config/database.yml #{release_path}/config/"
+  end
+  
+  desc "Execute bundle install"
+  task :bundle do
+    run "cd #{release_path}; #{sudo} bundle install"
   end
 end
