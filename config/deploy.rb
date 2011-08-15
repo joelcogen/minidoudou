@@ -1,3 +1,6 @@
+require 'capistrano_colors'
+require "whenever/capistrano"
+
 default_run_options[:pty] = true
 set :repository, "git@github.com:joelcogen/minidoudou.git"
 set :scm, "git"
