@@ -6,7 +6,7 @@ Devise.setup do |config|
   config.mailer_sender = "noreply@minidoudou.joelcogen.com"
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = "Devise::Mailer"
+  config.mailer = "Devise::Mailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -64,7 +64,7 @@ Devise.setup do |config|
   config.stretches = 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = "adf911dd4bf39cbc7ca5c7366f97226226eecbb34ddf9efbfa8f214441016f469dc3dbae0a19c492bad824a3f780803ab8fa23a8102496950fe4428ddc689e33"
+  config.pepper = "cda823dd4bf39cbc7ca5c7366f972262aaaecbb34dd29efbfacf2144d1016f469dc3dfae091cc4e2bad824a3f783653ab8fa23c8102496990fe4428ddc689e33"
 
   # ==> Configuration for :confirmable
   # The time you want to give your user to confirm his account. During this time
