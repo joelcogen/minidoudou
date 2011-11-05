@@ -48,4 +48,5 @@ Minidoudou::Application.configure do
   config.active_support.deprecation = :notify
   
   config.action_mailer.default_url_options = { :host => 'minidoudou.joelcogen.com' }
+  config.action_mailer.smtp_settings = { :enable_starttls_auto => false }
 end
