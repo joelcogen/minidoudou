@@ -1,5 +1,5 @@
 require 'fileutils'
-require 'lib/sendspace'
+require './lib/sendspace'
 
 namespace :mdd do
   desc "Generate configurations"
