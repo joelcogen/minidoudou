@@ -1,4 +1,4 @@
-require 'ftools'
+require 'fileutils'
 
 class DataFile < ActiveRecord::Base
   def self.store(upload)
@@ -18,9 +18,9 @@ class DataFile < ActiveRecord::Base
       end
       path = "#{path}_#{num.to_s}"
     end
-    
+
     begin
-      File.cp upload['datafile'].path, path
+      FileUtils.cp upload['datafile'].path, path
       path
     rescue
       false

@@ -1,4 +1,4 @@
-require 'ftools'
+require 'fileutils'
 require 'lib/sendspace'
 
 namespace :mdd do
@@ -67,7 +67,7 @@ namespace :mdd do
         File.open(us_path, "w") { |f| f.puts us }
 
         # Make sure /data/app exists
-        File.mkpath "files/tmp/data/app" or raise "Can't create /data/app"
+        FileUtils.mkpath "files/tmp/data/app" or raise "Can't create /data/app"
 
         # Apply changes
         config.changes.sort_by { |c| c.destination=='remove' ? 0 : ( c.apk.base_rom.nil? ? 2 : 1 ) }.each do |change|
@@ -78,11 +78,11 @@ namespace :mdd do
               or raise "Can't remove 'files/tmp/#{change.apk.location}/app/#{change.apk.name}.apk'"
           elsif change.apk.base_rom.nil?
             # Addition
-            File.copy change.apk.location, "files/tmp/#{change.destination}/app/#{change.apk.name}.apk" \
+            FileUtils.copy change.apk.location, "files/tmp/#{change.destination}/app/#{change.apk.name}.apk" \
               or raise "Can't move '#{change.apk.location}' to 'files/tmp/#{change.destination}/app/#{change.apk.name}.apk'"
           else
             # Move
-            File.move "files/tmp/#{change.apk.location}/app/#{change.apk.name}.apk", "files/tmp/#{change.destination}/app/#{change.apk.name}.apk" \
+            FileUtils.move "files/tmp/#{change.apk.location}/app/#{change.apk.name}.apk", "files/tmp/#{change.destination}/app/#{change.apk.name}.apk" \
               or raise "Can't move 'files/tmp/#{change.apk.location}/app/#{change.apk.name}.apk' to 'files/tmp/#{change.destination}/app/#{change.apk.name}.apk'" \
           end
         end
@@ -94,7 +94,7 @@ namespace :mdd do
           apk = Dir.entries('files/tmp/system/app/').select{|e| e.end_with?('.apk')}.first
           raise "System full: no more APKs to move" if apk.nil?
           log "System full: moving #{apk} to data"
-          File.move "files/tmp/system/app/#{apk}", "files/tmp/data/app/#{apk}" \
+          FileUtils.move "files/tmp/system/app/#{apk}", "files/tmp/data/app/#{apk}" \
             or raise "Can't move #{apk} from system to data"
           # Recompute
           system_used = `du -s files/tmp/system | awk '{print $1}'`.to_i
