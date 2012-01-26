@@ -1,0 +1,16 @@
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+
+<% 
+  require 'json'
+  env = JSON.parse(File.read('/home/dotcloud/environment.json'))
+%>
+
+production:
+  adapter: postgresql
+  database: minidoudou
+  host: <%= env['DOTCLOUD_DATA_SQL_HOST'] %>
+  port: <%= env['DOTCLOUD_DATA_SQL_PORT'] %>
+  username: <%= env['DOTCLOUD_DATA_SQL_LOGIN'] %>
+  password: <%= env['DOTCLOUD_DATA_SQL_PASSWORD'] %>

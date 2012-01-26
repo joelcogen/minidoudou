@@ -1,5 +1,7 @@
 www:
   type: ruby
+  exclude_bundler_groups:
+    - development
 db:
   type: postgresql
 
